@@ -11,13 +11,14 @@ import org.testng.annotations.Test;
 
 public class Topic_01_Check_Environment {
     WebDriver driver;
+    // Tao bien driver
 
 	@BeforeTest
 	public void beforeTest() {
-		driver = new FirefoxDriver();
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		driver.manage().window().maximize();
-		driver.get("http://live.guru99.com/");
+		driver = new FirefoxDriver(); // Lam viec tren firefox
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS); //Chua hieu lam
+		driver.manage().window().maximize(); // Maximize cua so browser
+		driver.get("http://live.guru99.com/"); // open link with firefox
 	}
 
 	@Test
