@@ -1,6 +1,7 @@
 package selenium;
 
 import java.util.concurrent.TimeUnit;
+import java.util.Random;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -63,7 +64,7 @@ public class Topic_02_Xpath_Css {
 		String pwAdvice = driver.findElement(By.id("advice-validate-password-pass")).getText();
 		Assert.assertEquals(pwAdvice, "Please enter 6 or more characters without leading or trailing spaces.");
 		
-	}
+	} 
 	
 	@Test
 	public void TC_04_Login_With_PW_Incorrect() throws Exception {
@@ -84,19 +85,32 @@ public class Topic_02_Xpath_Css {
 		driver.findElement(By.xpath("//div[@class='footer']//a[@title='My Account']")).click();
 		driver.findElement(By.xpath("//span[contains(text(),'Create an Account')]")).click();
 		driver.findElement(By.id("firstname")).sendKeys("Hale");
-		driver.findElement(By.xpath("//input[@id='middlename']")).sendKeys("Phong");
-		driver.findElement(By.xpath("//input[@title='Last Name']")).sendKeys("Trung");
-		driver.findElement(By.id("email_address")).sendKeys("trungphonghale05@gmail.com");
-		driver.findElement(By.xpath("//input[@id='password']")).sendKeys("lamgicohahaha");
-		driver.findElement(By.xpath("//input[@id='confirmation']")).sendKeys("lamgicohahaha");
+		driver.findElement(By.xpath("//input[@id='middlename']")).sendKeys("Hela");
+		driver.findElement(By.xpath("//input[@title='Last Name']")).sendKeys("Halu");
+		
+		//Create random number
+		Random ran = new Random();
+		int top = 3;
+		int randomNumber = 0;
+		for (int i=0; i<=top; i++) {
+		  int data = (int)(ran.nextInt(253)+151);
+		  randomNumber = data + randomNumber;
+		}
+		
+		String emailRegister = "tph.auto" + randomNumber + "@gmail.com";	
+		driver.findElement(By.id("email_address")).sendKeys(emailRegister);
+		Thread.sleep(3000);
+		
+		driver.findElement(By.xpath("//input[@id='password']")).sendKeys("lamgico");
+		driver.findElement(By.xpath("//input[@id='confirmation']")).sendKeys("lamgico");
 		driver.findElement(By.xpath("//button[@title='Register']")).click();		
-		Thread.sleep(2000);
 		
 		String Congrat_message = driver.findElement(By.xpath("//li[@class=\"success-msg\"]//span")).getText();
 		Assert.assertEquals(Congrat_message, "Thank you for registering with Main Website Store.");		
-		Thread.sleep(2000);
 		
-		driver.findElement(By.xpath("//div[@class='account-cart-wrapper']//span[contains(text(),'Account')]")).click();		
+		driver.findElement(By.xpath("//div[@class='account-cart-wrapper']//span[contains(text(),'Account')]")).click();	
+		Thread.sleep(3000);
+		
 		driver.findElement(By.xpath("//a[@title='Log Out']")).click();		
 		Thread.sleep(8000);
 		
