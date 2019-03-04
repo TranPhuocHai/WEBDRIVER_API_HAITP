@@ -15,11 +15,12 @@ public class Topic_02_Xpath_Css {
 
 
 	@BeforeTest
-	public void beforeTest() {
+	public void beforeTest() throws Exception {
 		driver = new FirefoxDriver();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.manage().window().maximize(); 
 		driver.get("http://live.guru99.com/");
+		Thread.sleep(5000);
 		
 	}
 
@@ -33,7 +34,6 @@ public class Topic_02_Xpath_Css {
 		
 		String emailRequired = driver.findElement(By.id("advice-required-entry-email")).getText();
 		Assert.assertEquals(emailRequired, "This is a required field.");
-		
 		
 		String passRequired = driver.findElement(By.id("advice-required-entry-pass")).getText();
 		Assert.assertEquals(passRequired, "This is a required field.");
@@ -78,6 +78,32 @@ public class Topic_02_Xpath_Css {
 		
 	}
 	
+	
+	@Test
+	public void TC_05_Register_Account() throws Exception {
+		driver.findElement(By.xpath("//div[@class='footer']//a[@title='My Account']")).click();
+		driver.findElement(By.xpath("//span[contains(text(),'Create an Account')]")).click();
+		driver.findElement(By.id("firstname")).sendKeys("Hale");
+		driver.findElement(By.xpath("//input[@id='middlename']")).sendKeys("Phong");
+		driver.findElement(By.xpath("//input[@title='Last Name']")).sendKeys("Trung");
+		driver.findElement(By.id("email_address")).sendKeys("trungphonghale05@gmail.com");
+		driver.findElement(By.xpath("//input[@id='password']")).sendKeys("lamgicohahaha");
+		driver.findElement(By.xpath("//input[@id='confirmation']")).sendKeys("lamgicohahaha");
+		driver.findElement(By.xpath("//button[@title='Register']")).click();		
+		Thread.sleep(2000);
+		
+		String Congrat_message = driver.findElement(By.xpath("//li[@class=\"success-msg\"]//span")).getText();
+		Assert.assertEquals(Congrat_message, "Thank you for registering with Main Website Store.");		
+		Thread.sleep(2000);
+		
+		driver.findElement(By.xpath("//div[@class='account-cart-wrapper']//span[contains(text(),'Account')]")).click();		
+		driver.findElement(By.xpath("//a[@title='Log Out']")).click();		
+		Thread.sleep(8000);
+		
+		String homePageTitle = driver.getTitle();
+		Assert.assertEquals(homePageTitle, "Home page");		
+		
+	}
 
 
 	@AfterTest
