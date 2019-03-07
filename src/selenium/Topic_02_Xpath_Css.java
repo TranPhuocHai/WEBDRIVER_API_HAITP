@@ -13,6 +13,11 @@ import org.testng.annotations.Test;
 
 public class Topic_02_Xpath_Css {
     WebDriver driver;
+    String firstName = "HaiAuto";
+    String middleName = "TranMation";
+    String lastName = "API";
+    String password = "123456789";
+    String emailAddress = "haitranautomation" + randomNumber() + "@gmail.com";
 
 
 	@BeforeTest
@@ -83,40 +88,28 @@ public class Topic_02_Xpath_Css {
 	@Test
 	public void TC_05_Register_Account() throws Exception {
 		driver.findElement(By.xpath("//div[@class='footer']//a[@title='My Account']")).click();
-		driver.findElement(By.xpath("//span[contains(text(),'Create an Account')]")).click();
-		driver.findElement(By.id("firstname")).sendKeys("Hale");
-		driver.findElement(By.xpath("//input[@id='middlename']")).sendKeys("Hela");
-		driver.findElement(By.xpath("//input[@title='Last Name']")).sendKeys("Halu");
-		
-		//Create random number
-		Random ran = new Random();
-		int top = 3;
-		int randomNumber = 0;
-		for (int i=0; i<=top; i++) {
-		  int data = (int)(ran.nextInt(253)+151);
-		  randomNumber = data + randomNumber;
-		}
-		
-		String emailRegister = "tph.auto" + randomNumber + "@gmail.com";	
-		driver.findElement(By.id("email_address")).sendKeys(emailRegister);
-		Thread.sleep(3000);
-		
-		driver.findElement(By.xpath("//input[@id='password']")).sendKeys("lamgico");
-		driver.findElement(By.xpath("//input[@id='confirmation']")).sendKeys("lamgico");
-		driver.findElement(By.xpath("//button[@title='Register']")).click();		
-		
+		driver.findElement(By.xpath("//span[contains(text(),'Create an Account')]")).click();		
+		driver.findElement(By.xpath("//input[@id='firstname']")).sendKeys(firstName);
+		driver.findElement(By.xpath("//input[@id='middlename']")).sendKeys(middleName);
+		driver.findElement(By.xpath("//input[@id='lastname']")).sendKeys(lastName);
+		driver.findElement(By.xpath("//input[@id='email_address']")).sendKeys(emailAddress);
+		driver.findElement(By.xpath("//input[@id='password']")).sendKeys(password);
+		driver.findElement(By.xpath("//input[@id='confirmation']")).sendKeys(password);		
+		driver.findElement(By.xpath("//button[@title='Register']")).click();			
 		String Congrat_message = driver.findElement(By.xpath("//li[@class=\"success-msg\"]//span")).getText();
-		Assert.assertEquals(Congrat_message, "Thank you for registering with Main Website Store.");		
-		
-		driver.findElement(By.xpath("//div[@class='account-cart-wrapper']//span[contains(text(),'Account')]")).click();	
-		Thread.sleep(3000);
-		
-		driver.findElement(By.xpath("//a[@title='Log Out']")).click();		
-		Thread.sleep(8000);
-		
-		String homePageTitle = driver.getTitle();
-		Assert.assertEquals(homePageTitle, "Home page");		
-		
+		Assert.assertEquals(Congrat_message, "Thank you for registering with Main Website Store.");				
+		driver.findElement(By.xpath("//div[@class='account-cart-wrapper']//span[contains(text(),'Account')]")).click();			
+		Thread.sleep(1000);		
+		driver.findElement(By.xpath("//a[@title='Log Out']")).click();				
+		Assert.assertTrue(driver.findElement(By.xpath("//div [@class='page-title']//img[contains(@src,'logo.png')]")).isDisplayed());		
+				
+	}
+	
+	public int randomNumber() {
+		Random random = new Random();
+		int number = random.nextInt(99999);
+		System.out.println("Random Number for email is:" + number);
+		return number;
 	}
 
 
