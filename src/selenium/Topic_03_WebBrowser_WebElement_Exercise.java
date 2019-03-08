@@ -37,7 +37,7 @@ public class Topic_03_WebBrowser_WebElement_Exercise {
 	  }	
 	
   @Test
-  public void TC_01_Check_Element_Display() {
+  public void TC_01_Check_Element_isDisplayed() {
 	  	  
 	  if(isElementDisplayed(emailTextbox)) {
 		  driver.findElement(emailTextbox).sendKeys("Automation");		  
@@ -54,11 +54,14 @@ public class Topic_03_WebBrowser_WebElement_Exercise {
   }
   
   @Test
-  public void TC_02_Check_Element_Enable() {
+  public void TC_02_Check_Element_isEnabled() {
 
 
 	  if (isEnable(emailTextbox)){
-		  System.out.println("- Email Textbox is enable");}
+		  System.out.println("***TC_02_Check_Element_isEnabled Results:");
+		  System.out.println("- Email Textbox is enable");
+		  
+	  }
 		  else {
 			  System.out.println("- Email Textbox is disable");		  
 	  }
@@ -146,11 +149,46 @@ public class Topic_03_WebBrowser_WebElement_Exercise {
   }
   
   @Test
-  public void TC_03_Check_Element_Ticked () {
+  public void TC_03_Check_Element_isTicked () {
 	  driver.get("https://daominhdam.github.io/basic-form/index.html");
 	  driver.findElement(AgeUnder18Radio).click();
 	  driver.findElement(interestsDevelopment).click();
 	  
+	  if (isSelected(AgeUnder18Radio)) {
+		  
+	  }
+	  else {
+		  driver.findElement(AgeUnder18Radio).click(); 
+	  }
+	  
+	  if (isSelected(interestsDevelopment)) {
+		  
+	  }
+	  else {
+		  driver.findElement(interestsDevelopment).click(); 
+	  }
+  }
+  
+  @Test
+  public void TC_04_Check_Element_isTicked_02 () throws Exception {
+	  //Clone from TC_03 but don''t choose Age Under 18 Radio Button
+	  driver.get("https://daominhdam.github.io/basic-form/index.html");
+	  driver.findElement(interestsDevelopment).click();
+	  Thread.sleep(3000);
+	  
+	  if (isSelected(AgeUnder18Radio)) {
+		  
+	  }
+	  else {
+		  driver.findElement(AgeUnder18Radio).click(); 
+	  }
+	  
+	  if (isSelected(interestsDevelopment)) {
+		  
+	  }
+	  else {
+		  driver.findElement(interestsDevelopment).click(); 
+	  }
   }
 
   @AfterTest
@@ -163,9 +201,17 @@ public class Topic_03_WebBrowser_WebElement_Exercise {
 	  return driver.findElement(byValue).isDisplayed();
 	  
   }
+  
   public boolean isEnable(By byValue) {
 	  return driver.findElement(byValue).isEnabled();
   }
+  
+  public boolean isSelected (By byValue) {
+	  
+	  return driver.findElement(byValue).isSelected();
+	  
+  }
+  
 
   
 }
