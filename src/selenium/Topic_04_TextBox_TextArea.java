@@ -119,7 +119,7 @@ public class Topic_04_TextBox_TextArea {
 	  
 	  //Get Customer ID
 	  customerID = driver.findElement(By.xpath("//td[text()='Customer ID']/following-sibling::td")).getText();
-	  System.out.println("Customer ID has just cretaed is: " + customerID);
+	  System.out.println("Customer ID has just created is: " + customerID);
 	  
 	  //Verify actual result = expected result
 	  Assert.assertEquals(driver.findElement(outputCustomerName).getText(), customerName);
@@ -172,6 +172,7 @@ public class Topic_04_TextBox_TextArea {
 
   @AfterTest
   public void afterTest() {
+	  driver.quit();
   }
 
 }
