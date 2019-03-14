@@ -11,7 +11,7 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-public class Topic_04_TextBox_TextArea {
+public class Topic_04_Part1_TextBox_TextArea {
 	WebDriver driver;
 	
 	//Random Number

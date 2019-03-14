@@ -33,6 +33,7 @@ public class Topic_01_Check_Environment {
 		Assert.assertEquals(homePageTitle, "Home page");
 	}
 
+	
 	@AfterTest
 	public void afterTest() {
 		driver.quit();

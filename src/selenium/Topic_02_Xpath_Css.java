@@ -112,7 +112,6 @@ public class Topic_02_Xpath_Css {
 		return number;
 	}
 
-
 	@AfterTest
 	public void afterTest() {
 		driver.quit();
