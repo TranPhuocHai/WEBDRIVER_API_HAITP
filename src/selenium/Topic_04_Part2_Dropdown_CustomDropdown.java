@@ -61,13 +61,13 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
   public void TC_02_Jquery_Custom_Dropdown () throws Exception {
 	  driver.get("http://jqueryui.com/resources/demos/selectmenu/default.html");
 	  
-	  selectItem_In_CustomDropdown1 ("//span[@id='number-button']", "//ul[@id='number-menu']/li[@class='ui-menu-item']/div", "19");
+	  selectItem_In_CustomDropdown ("//span[@id='number-button']", "//ul[@id='number-menu']/li[@class='ui-menu-item']/div", "19");
 	  Assert.assertTrue(isElementDisplayed("//span[@id='number-button']//span[@class='ui-selectmenu-text' and text()='19']"));
 	  
-	  selectItem_In_CustomDropdown1 ("//span[@id='number-button']", "//ul[@id='number-menu']/li[@class='ui-menu-item']/div", "3");
+	  selectItem_In_CustomDropdown ("//span[@id='number-button']", "//ul[@id='number-menu']/li[@class='ui-menu-item']/div", "3");
 	  Assert.assertTrue(isElementDisplayed("//span[@id='number-button']//span[@class='ui-selectmenu-text' and text()='3']"));
 	  
-	  selectItem_In_CustomDropdown1 ("//span[@id='number-button']", "//ul[@id='number-menu']/li[@class='ui-menu-item']/div", "16");
+	  selectItem_In_CustomDropdown ("//span[@id='number-button']", "//ul[@id='number-menu']/li[@class='ui-menu-item']/div", "16");
 	  Assert.assertTrue(isElementDisplayed("//span[@id='number-button']//span[@class='ui-selectmenu-text' and text()='16']"));
 	  
   }
@@ -91,7 +91,7 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
   public void TC_04_Telerik_Custom_Dropdown () throws Exception {
 	  driver.get("https://demos.telerik.com/kendo-ui/dropdownlist/index");
 	    
-	  selectItem_In_CustomDropdown2("//span[@aria-owns='color_listbox']", "//ul[@id='color_listbox']/child::li", "Orange");
+	  selectItem_In_CustomDropdown("//span[@aria-owns='color_listbox']", "//ul[@id='color_listbox']/child::li", "Orange");
 	  Assert.assertTrue(isElementDisplayed("//input[@id='color']/preceding-sibling::span/span[text()='Orange']"));	  
 
 	  
@@ -102,14 +102,15 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
 	  driver.get("https://mikerodham.github.io/vue-dropdowns/");
 	  
 	  
-	  selectItem_In_CustomDropdown2("//li[@class='dropdown-toggle']", "//ul[@class='dropdown-menu']/li/a", "Second Option");
+	  selectItem_In_CustomDropdown("//li[@class='dropdown-toggle']", "//ul[@class='dropdown-menu']/li/a", "Second Option");
 	  Assert.assertTrue(isElementDisplayed("//li[@class='dropdown-toggle' and contains(text(),'Second Option')]"));	  
 	  
-	  selectItem_In_CustomDropdown2("//li[@class='dropdown-toggle']", "//ul[@class='dropdown-menu']/li/a", "First Option");
+	  selectItem_In_CustomDropdown("//li[@class='dropdown-toggle']", "//ul[@class='dropdown-menu']/li/a", "First Option");
 	  Assert.assertTrue(isElementDisplayed("//li[@class='dropdown-toggle' and contains(text(),'First Option')]"));	 
 	  
-	  selectItem_In_CustomDropdown2("//li[@class='dropdown-toggle']", "//ul[@class='dropdown-menu']/li/a", "Third Option");
-	  Assert.assertTrue(isElementDisplayed("//li[@class='dropdown-toggle' and contains(text(),'Third Option')]"));	  	  
+	  selectItem_In_CustomDropdown("//li[@class='dropdown-toggle']", "//ul[@class='dropdown-menu']/li/a", "Third Option");
+	  Assert.assertTrue(isElementDisplayed("//li[@class='dropdown-toggle' and contains(text(),'Third Option')]"));	  	
+
 	  
   }
   
@@ -118,15 +119,15 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
   @Test (enabled = true)
   public void TC_06_Custom_Dropdown_Indrimuska_Editable() throws Exception {
 		driver.get("http://indrimuska.github.io/jquery-editable-select/");
-		  selectItem_In_CustomDropdown1("//div[@id='default-place']/input", "//div[@id='default-place']//li", "Land Rover");
-		  Assert.assertTrue(isElementDisplayed("//div[@id='default-place']//li[@class='es-visible' and contains(text(),'Land Rover')]"));	
+		  selectItem_In_CustomDropdown ("//div[@id='default-place']/input", "//div[@id='default-place']//li", "Land Rover");
+		  Thread.sleep(5000);
+		  Assert.assertTrue(isElementDisplayed("//div[@id='default-place']//li[@class='es-visible' and contains(text(),'Land Rover')]/parent::ul/preceding-sibling::input"));	
 		
   }
 
   
-  public void selectItem_In_CustomDropdown1 (String parent_Xpath, String all_Item_Xpath, String expected_Item) throws Exception {
-	  // Use for TC_02/C_06
-	  
+  public void selectItem_In_CustomDropdown (String parent_Xpath, String all_Item_Xpath, String expected_Item) throws Exception {
+  
 	  WebElement parentDropdown = driver.findElement(By.xpath(parent_Xpath));
 	  
 	  //1- click on dropdown
@@ -143,15 +144,17 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
 			  
 			  // 3 - scroll to expected item
 			  javascriptExecutor.executeScript("arguments[0].scrollIntoView(true);", childElement);
+			  Thread.sleep(2000);
 			  // 4 - click on expected item
 			  childElement.click();
+			  Thread.sleep(2000);
 			  break;
 		  }
 		  
 	  }	  
   }
   public void selectItem_In_CustomDropdown2 (String parent_Xpath, String all_Item_Xpath, String expected_Item) throws Exception {
-	  // Use for TC_03/TC_04/TC_05
+	  // for TC_04 only
 	  
 	  WebElement parentDropdown = driver.findElement(By.xpath(parent_Xpath));
 	  
@@ -169,8 +172,10 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
 			  
 			  // 3 - scroll to expected item
 			  javascriptExecutor.executeScript("arguments[0].scrollIntoView(true);", childElement);
+			  Thread.sleep(1500);
 			  // 4 - click on expected item by javascriptExecutor
 			  javascriptExecutor.executeScript("arguments[0].click();", childElement);
+			  Thread.sleep(1500);
 			  break;
 		  }
 		  
