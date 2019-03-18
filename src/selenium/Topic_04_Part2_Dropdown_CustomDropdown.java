@@ -118,11 +118,18 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
   
   @Test (enabled = true)
   public void TC_06_Custom_Dropdown_Indrimuska_Editable() throws Exception {
-		driver.get("https://indrimuska.github.io/jquery-editable-select/");
-		  selectItem_In_CustomDropdown ("//div[@id='default-place']/input", "//div[@id='default-place']//li", "Land Rover");
-		  Thread.sleep(5000);
-		  Assert.assertTrue(isElementDisplayed("//div[@id='default-place']//li[@class='es-visible' and contains(text(),'Land Rover')]/parent::ul/preceding-sibling::input"));	
-		
+	  driver.get("https://indrimuska.github.io/jquery-editable-select/");
+	  selectItem_In_CustomDropdown ("//div[@id='default-place']/input", "//div[@id='default-place']//li", "Land Rover");
+	  Thread.sleep(5000);
+	  Assert.assertTrue(isElementDisplayed("//div[@id='default-place']//li[@class='es-visible' and contains(text(),'Land Rover')]/parent::ul/preceding-sibling::input"));	
+	  
+  }
+  
+  @Test (enabled = true)
+  public void TC_07_Multiple_Dropdown() throws Exception {
+		driver.get("");
+		//check push from lap
+
   }
 
   
