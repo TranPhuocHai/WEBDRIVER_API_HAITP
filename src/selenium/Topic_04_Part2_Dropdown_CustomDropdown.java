@@ -93,6 +93,12 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
 	    
 	  selectItem_In_CustomDropdown("//span[@aria-owns='color_listbox']", "//ul[@id='color_listbox']/child::li", "Orange");
 	  Assert.assertTrue(isElementDisplayed("//input[@id='color']/preceding-sibling::span/span[text()='Orange']"));	  
+	  
+	  selectItem_In_CustomDropdown("//span[@aria-owns='color_listbox']", "//ul[@id='color_listbox']/child::li", "Black");
+	  Assert.assertTrue(isElementDisplayed("//input[@id='color']/preceding-sibling::span/span[text()='Black']"));	 
+	  
+	  selectItem_In_CustomDropdown("//span[@aria-owns='color_listbox']", "//ul[@id='color_listbox']/child::li", "Grey");
+	  Assert.assertTrue(isElementDisplayed("//input[@id='color']/preceding-sibling::span/span[text()='Grey']"));	
 
 	  
   }
@@ -127,8 +133,22 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
   
   @Test (enabled = true)
   public void TC_07_Multiple_Dropdown() throws Exception {
-		driver.get("");
-		//check push from lap
+		driver.get("https://multiple-select.wenzhixin.net.cn/examples/#basic.html");
+		String [] items = {"February", "December", "April"};
+		String [] newItems = {"February", "December", "April", "November", "January"};
+		
+		By iframeXpath = By.xpath("//div[@class='content']//iframe");
+		WebElement iframe = driver.findElement(iframeXpath);
+		driver.switchTo().frame(iframe);
+		selectMulti_Item_In_CustomDropdown("//button[@class='ms-choice']", "//div[@class='ms-drop bottom']//span", items);
+		Assert.assertTrue(check_Item_Selected(items));
+		
+		
+		driver.navigate().refresh();
+		WebElement iframe_new = driver.findElement(iframeXpath);
+		driver.switchTo().frame(iframe_new);
+		selectMulti_Item_In_CustomDropdown("//button[@class='ms-choice']", "//div[@class='ms-drop bottom']//span", newItems);
+		Assert.assertTrue(check_Item_Selected(newItems));
 
   }
 
@@ -143,6 +163,7 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
 	  waitExplicit.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(all_Item_Xpath)));
 	  
 	  List <WebElement> all_Item = driver.findElements(By.xpath(all_Item_Xpath));
+	  System.out.println("all items in dropdown: " + all_Item.size());
 	  
 	  for (WebElement childElement : all_Item) {
 		  System.out.println("Each Time get Text: " + childElement.getText());  
@@ -161,7 +182,9 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
 		  
 	  }	  
   }
- 
+
+
+  
   public boolean isElementDisplayed (String valueXpath) {
 	  WebElement element = driver.findElement(By.xpath(valueXpath));
 	  if (element.isDisplayed()) {
@@ -174,6 +197,61 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
 	  }	  
   }
   
+  public void selectMulti_Item_In_CustomDropdown (String parent_Xpath, String all_Item_Xpath, String [] expected_Item) throws Exception {
+	  WebElement parentDropdown = driver.findElement(By.xpath(parent_Xpath));
+	  //1- click on dropdown by javascriptExecutor
+	  javascriptExecutor.executeScript("arguments[0].click();", parentDropdown);
+	  
+	  // 2- Wait for dropdown loads all items
+	  waitExplicit.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(all_Item_Xpath)));
+	  
+	  List <WebElement> all_Item = driver.findElements(By.xpath(all_Item_Xpath));
+	  System.out.println("all items in dropdown: " + all_Item.size());
+	  
+	  for (WebElement childElement : all_Item) {
+		  for (String item : expected_Item) {
+			  if (childElement.getText().equals(item)) {
+				  javascriptExecutor.executeScript("arguments[0].scrollIntoView(true);", childElement);
+				  Thread.sleep(1500);
+				  javascriptExecutor.executeScript("arguments[0].click();", childElement);
+				  Thread.sleep(1500);
+				  
+				  //Khai báo Element Xpath của các items đã được chọn
+				  List<WebElement> itemSelected = driver.findElements(By.xpath("//li[@class='selected']//input"));
+				  System.out.println("Number of item selected = " + itemSelected.size());
+				  
+				  // Nếu số lượng item dda chọn đã đủ -> break vòng lặp
+				  if(expected_Item.length == itemSelected.size()) {
+					  break;
+				  }
+				  
+			  }
+
+		  }
+		  
+	  }
+	
+	  
+  }
+  public boolean check_Item_Selected (String [] item_Selected_Text) {
+	  List<WebElement> itemSelected = driver.findElements(By.xpath("//li[@class='selected']//input"));
+	  int number_ItemSelected = itemSelected.size();
+	  String all_item_Selected_Text = driver.findElement(By.xpath("//button[@class='ms-choice']/span")).getText();
+	  System.out.println("Text da chon: " + all_item_Selected_Text );
+	  if (number_ItemSelected <= 3 && number_ItemSelected > 0) {
+		  for (String item : item_Selected_Text) {
+			  if (all_item_Selected_Text.contains(item)) {
+				  break;
+			  }
+		  }
+		  return true;
+	  }
+	  else {
+		  return driver.findElement(By.xpath("//button[@class='ms-choice']/span[text()='" + number_ItemSelected + " of 12 selected']")).isDisplayed();
+	  }
+	  
+	  
+  }
   
   @AfterTest
   public void afterTest() {
