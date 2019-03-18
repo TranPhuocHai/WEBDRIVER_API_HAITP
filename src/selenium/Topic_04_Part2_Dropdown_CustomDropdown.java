@@ -16,6 +16,8 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import com.sun.xml.internal.ws.api.server.Container;
+
 public class Topic_04_Part2_Dropdown_CustomDropdown {
 	WebDriver driver;
 	WebDriverWait waitExplicit;
@@ -31,7 +33,7 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
 	  	  
 	  }
   
-  @Test (enabled = true)
+  @Test (enabled = false)
   public void TC_01_Default_Dropdown () throws Exception {	  
   
   driver.get("https://daominhdam.github.io/basic-form/index.html");
@@ -57,7 +59,7 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
   
   }
   
-  @Test (enabled = true)
+  @Test (enabled = false)
   public void TC_02_Jquery_Custom_Dropdown () throws Exception {
 	  driver.get("https://jqueryui.com/resources/demos/selectmenu/default.html");
 	  
@@ -72,7 +74,7 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
 	  
   }
   
-  @Test (enabled = true)
+  @Test (enabled = false)
   public void TC_03_Angular_Custom_Dropdown () throws Exception {
 	  driver.get("https://material.angular.io/components/select/examples");
 	  
@@ -87,7 +89,7 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
 	  
   }
   
-  @Test (enabled = true)
+  @Test (enabled = false)
   public void TC_04_Telerik_Custom_Dropdown () throws Exception {
 	  driver.get("https://demos.telerik.com/kendo-ui/dropdownlist/index");
 	    
@@ -103,7 +105,7 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
 	  
   }
   
-  @Test (enabled = true)
+  @Test (enabled = false)
   public void TC_05_Vue_Custom_Dropdown () throws Exception {
 	  driver.get("https://mikerodham.github.io/vue-dropdowns/");
 	  
@@ -122,7 +124,7 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
   
 	  
   
-  @Test (enabled = true)
+  @Test (enabled = false)
   public void TC_06_Custom_Dropdown_Indrimuska_Editable() throws Exception {
 	  driver.get("https://indrimuska.github.io/jquery-editable-select/");
 	  selectItem_In_CustomDropdown ("//div[@id='default-place']/input", "//div[@id='default-place']//li", "Land Rover");
@@ -131,24 +133,46 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
 	  
   }
   
-  @Test (enabled = true)
+  @Test (enabled = false)
   public void TC_07_Multiple_Dropdown() throws Exception {
-		driver.get("https://multiple-select.wenzhixin.net.cn/examples/#basic.html");
-		String [] items = {"February", "December", "April"};
-		String [] newItems = {"February", "December", "April", "November", "January"};
-		
-		By iframeXpath = By.xpath("//div[@class='content']//iframe");
-		WebElement iframe = driver.findElement(iframeXpath);
-		driver.switchTo().frame(iframe);
-		selectMulti_Item_In_CustomDropdown("//button[@class='ms-choice']", "//div[@class='ms-drop bottom']//span", items);
-		Assert.assertTrue(check_Item_Selected(items));
-		
-		
-		driver.navigate().refresh();
-		WebElement iframe_new = driver.findElement(iframeXpath);
-		driver.switchTo().frame(iframe_new);
-		selectMulti_Item_In_CustomDropdown("//button[@class='ms-choice']", "//div[@class='ms-drop bottom']//span", newItems);
-		Assert.assertTrue(check_Item_Selected(newItems));
+	  driver.get("https://multiple-select.wenzhixin.net.cn/examples/#basic.html");
+	  String [] items = {"February", "December", "April"};
+	  String [] newItems = {"February", "December", "April", "November", "January"};
+	  
+	  By iframeXpath = By.xpath("//div[@class='content']//iframe");
+	  WebElement iframe = driver.findElement(iframeXpath);
+	  driver.switchTo().frame(iframe);
+	  selectMulti_Item_In_CustomDropdown("//button[@class='ms-choice']", "//div[@class='ms-drop bottom']//span", items,"//li[@class='selected']//input" );
+	  Assert.assertTrue(check_Item_Selected(items));
+	  
+	  
+	  driver.navigate().refresh();
+	  WebElement iframe_new = driver.findElement(iframeXpath);
+	  driver.switchTo().frame(iframe_new);
+	  selectMulti_Item_In_CustomDropdown("//button[@class='ms-choice']", "//div[@class='ms-drop bottom']//span", newItems,"//li[@class='selected']//input");
+	  Assert.assertTrue(check_Item_Selected(newItems));
+	  
+  }
+  
+  @Test (enabled = true)
+  public void TC_08_Multiple_Dropdown_02() throws Exception {
+		driver.get("https://semantic-ui.com/modules/dropdown.html");
+		String [] items = {"CSS", "Ruby", "HTML"};
+
+		selectMulti_Item_In_CustomDropdown
+		("//select[@name='skills']/parent::div[@class='ui fluid dropdown selection multiple']", 
+				"//select[@name='skills']/following-sibling::div[@class='menu transition visible']/div", items, 
+				"//a[@class='ui label transition visible']");
+		List <WebElement> list_items_selected = driver.findElements(By.xpath("//a[@class='ui label transition visible']"));
+		int number_items_selected = list_items_selected.size();
+		for (int i=1 ; i <= number_items_selected ; i++) {
+			 
+		 Assert.assertEquals(driver.findElement(By.xpath("//a[@class='ui label transition visible'][" + i +"]")).getText(), items[i-1]); 
+		 //Still not OK, the for loop maybe wrong
+
+		}
+	
+
 
   }
 
@@ -197,7 +221,8 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
 	  }	  
   }
   
-  public void selectMulti_Item_In_CustomDropdown (String parent_Xpath, String all_Item_Xpath, String [] expected_Item) throws Exception {
+	  
+  public void selectMulti_Item_In_CustomDropdown (String parent_Xpath, String all_Item_Xpath, String [] expected_Item, String selected_items_already) throws Exception {
 	  WebElement parentDropdown = driver.findElement(By.xpath(parent_Xpath));
 	  //1- click on dropdown by javascriptExecutor
 	  javascriptExecutor.executeScript("arguments[0].click();", parentDropdown);
@@ -217,10 +242,10 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
 				  Thread.sleep(1500);
 				  
 				  //Khai báo Element Xpath của các items đã được chọn
-				  List<WebElement> itemSelected = driver.findElements(By.xpath("//li[@class='selected']//input"));
+				  List<WebElement> itemSelected = driver.findElements(By.xpath(selected_items_already));
 				  System.out.println("Number of item selected = " + itemSelected.size());
 				  
-				  // Nếu số lượng item dda chọn đã đủ -> break vòng lặp
+				  // Nếu số lượng item da chọn đã đủ -> break vòng lặp
 				  if(expected_Item.length == itemSelected.size()) {
 					  break;
 				  }
@@ -235,11 +260,18 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
   }
   public boolean check_Item_Selected (String [] item_Selected_Text) {
 	  List<WebElement> itemSelected = driver.findElements(By.xpath("//li[@class='selected']//input"));
+	  //1 - lay ra so luong item da dc chon
 	  int number_ItemSelected = itemSelected.size();
+	  
+	  //2 - lay ra text hien thi tren o dropdown
 	  String all_item_Selected_Text = driver.findElement(By.xpath("//button[@class='ms-choice']/span")).getText();
 	  System.out.println("Text da chon: " + all_item_Selected_Text );
+	  
+	  // 2 cases: <=3 or >3,always >0
 	  if (number_ItemSelected <= 3 && number_ItemSelected > 0) {
+		  // Duyet qua tung item trong mang ban dau
 		  for (String item : item_Selected_Text) {
+			  // neu text hien thi tren element da dc chon chua gia tri item trong mang ban dau th
 			  if (all_item_Selected_Text.contains(item)) {
 				  break;
 			  }
@@ -252,6 +284,8 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
 	  
 	  
   }
+  
+
   
   @AfterTest
   public void afterTest() {
