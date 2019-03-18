@@ -59,7 +59,7 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
   
   @Test (enabled = true)
   public void TC_02_Jquery_Custom_Dropdown () throws Exception {
-	  driver.get("http://jqueryui.com/resources/demos/selectmenu/default.html");
+	  driver.get("https://jqueryui.com/resources/demos/selectmenu/default.html");
 	  
 	  selectItem_In_CustomDropdown ("//span[@id='number-button']", "//ul[@id='number-menu']/li[@class='ui-menu-item']/div", "19");
 	  Assert.assertTrue(isElementDisplayed("//span[@id='number-button']//span[@class='ui-selectmenu-text' and text()='19']"));
@@ -76,13 +76,13 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
   public void TC_03_Angular_Custom_Dropdown () throws Exception {
 	  driver.get("https://material.angular.io/components/select/examples");
 	  
-	  selectItem_In_CustomDropdown2 ("//mat-select[@placeholder='State']", "//mat-option/span", "Hawaii");
+	  selectItem_In_CustomDropdown ("//mat-select[@placeholder='State']", "//mat-option/span", "Hawaii");
 	  Assert.assertTrue(isElementDisplayed("//mat-select[@placeholder='State']//span[text()='Hawaii']"));
 	  
-	  selectItem_In_CustomDropdown2 ("//mat-select[@placeholder='State']", "//mat-option/span", "Alaska");
+	  selectItem_In_CustomDropdown ("//mat-select[@placeholder='State']", "//mat-option/span", "Alaska");
 	  Assert.assertTrue(isElementDisplayed("//mat-select[@placeholder='State']//span[text()='Alaska']"));
 	  
-	  selectItem_In_CustomDropdown2 ("//mat-select[@placeholder='State']", "//mat-option/span", "New York");
+	  selectItem_In_CustomDropdown ("//mat-select[@placeholder='State']", "//mat-option/span", "New York");
 	  Assert.assertTrue(isElementDisplayed("//mat-select[@placeholder='State']//span[text()='New York']"));
 	  
   }
@@ -118,7 +118,7 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
   
   @Test (enabled = true)
   public void TC_06_Custom_Dropdown_Indrimuska_Editable() throws Exception {
-		driver.get("http://indrimuska.github.io/jquery-editable-select/");
+		driver.get("https://indrimuska.github.io/jquery-editable-select/");
 		  selectItem_In_CustomDropdown ("//div[@id='default-place']/input", "//div[@id='default-place']//li", "Land Rover");
 		  Thread.sleep(5000);
 		  Assert.assertTrue(isElementDisplayed("//div[@id='default-place']//li[@class='es-visible' and contains(text(),'Land Rover')]/parent::ul/preceding-sibling::input"));	
@@ -129,35 +129,6 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
   public void selectItem_In_CustomDropdown (String parent_Xpath, String all_Item_Xpath, String expected_Item) throws Exception {
   
 	  WebElement parentDropdown = driver.findElement(By.xpath(parent_Xpath));
-	  
-	  //1- click on dropdown
-	  parentDropdown.click();
-	  
-	  // 2- Wait for dropdown loads all items
-	  waitExplicit.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(all_Item_Xpath)));
-	  
-	  List <WebElement> all_Item = driver.findElements(By.xpath(all_Item_Xpath));
-	  
-	  for (WebElement childElement : all_Item) {
-		  System.out.println("Each Time get Text: " + childElement.getText());  
-		  if (childElement.getText().equals(expected_Item)) {
-			  
-			  // 3 - scroll to expected item
-			  javascriptExecutor.executeScript("arguments[0].scrollIntoView(true);", childElement);
-			  Thread.sleep(2000);
-			  // 4 - click on expected item
-			  childElement.click();
-			  Thread.sleep(2000);
-			  break;
-		  }
-		  
-	  }	  
-  }
-  public void selectItem_In_CustomDropdown2 (String parent_Xpath, String all_Item_Xpath, String expected_Item) throws Exception {
-	  // for TC_04 only
-	  
-	  WebElement parentDropdown = driver.findElement(By.xpath(parent_Xpath));
-	  
 	  //1- click on dropdown by javascriptExecutor
 	  javascriptExecutor.executeScript("arguments[0].click();", parentDropdown);
 	  
@@ -168,22 +139,22 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
 	  
 	  for (WebElement childElement : all_Item) {
 		  System.out.println("Each Time get Text: " + childElement.getText());  
-		  if (childElement.getText().equals(expected_Item)) {
-			  
+		  if (childElement.getText().equals(expected_Item)) {			  
 			  // 3 - scroll to expected item
 			  javascriptExecutor.executeScript("arguments[0].scrollIntoView(true);", childElement);
-			  Thread.sleep(1500);
-			  // 4 - click on expected item by javascriptExecutor
-			  javascriptExecutor.executeScript("arguments[0].click();", childElement);
-			  Thread.sleep(1500);
+			  Thread.sleep(1000);
+			  if (childElement.isDisplayed()) {
+				  childElement.click();
+			  } else {
+				  javascriptExecutor.executeScript("arguments[0].click();", childElement);
+			  }
+			  Thread.sleep(1000);
 			  break;
 		  }
 		  
 	  }	  
   }
-  
  
-  
   public boolean isElementDisplayed (String valueXpath) {
 	  WebElement element = driver.findElement(By.xpath(valueXpath));
 	  if (element.isDisplayed()) {
