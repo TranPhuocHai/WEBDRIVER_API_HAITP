@@ -35,42 +35,29 @@ public class Topic_05_Button_Radio_Checkbox_Alert {
 		
 		WebElement CreateAccountLink = driver.findElement(By.xpath("//a[@title='Create an Account']"));
 		jsExecutor.executeScript("arguments[0].click();", CreateAccountLink);
-		Assert.assertEquals(driver.getCurrentUrl(), "http://http://live.guru99.com/index.php/customer/account/create/");
+		Assert.assertEquals(driver.getCurrentUrl(), "http://live.guru99.com/index.php/customer/account/create/");
 		
 	}
 	
-	@Test (enabled = false)
-	public void TC_01_Button_SeleniumClick() {
-		
-		driver.get("http://live.guru99.com/");
-		WebElement myAccountLink = driver.findElement(By.xpath("//div[@class='footer-container']//a[@title='My Account']"));
-		myAccountLink.click();
-		Assert.assertEquals(driver.getCurrentUrl(), "http://live.guru99.com/index.php/customer/account/login/");
-				
-		WebElement CreateAccountLink = driver.findElement(By.xpath("//a[@title='Create an Account']"));
-		CreateAccountLink.click();
-		Assert.assertEquals(driver.getCurrentUrl(), "http://http://live.guru99.com/index.php/customer/account/create/");
-		
-	}
 	
 	@Test (enabled = true)
-	public void TC_02() {
+	public void TC_02_KendoUi_CheckBox() throws Exception {
 		driver.get("https://demos.telerik.com/kendo-ui/styling/checkboxes");
-		By DualZoneXpath = By.xpath("//label[text()='Dual-zone air conditioning']/preceding-sibling::input");
-		WebElement DualZoneCheckbox = driver.findElement(DualZoneXpath);
-		jsExecutor.executeScript("agruments[0].click();" , DualZoneCheckbox);
-		isElementSelected(DualZoneXpath);
+		
+		WebElement DualZoneCheckbox = driver.findElement(By.xpath("//label[text()='Dual-zone air conditioning']/preceding-sibling::input"));
+		
+		jsExecutor.executeScript("arguments[0].click();", DualZoneCheckbox);	
+		Assert.assertTrue(DualZoneCheckbox.isSelected());
+		Thread.sleep(2000);
+		
+		jsExecutor.executeScript("arguments[0].click();", DualZoneCheckbox);	
+		Assert.assertFalse(DualZoneCheckbox.isSelected());
+		Thread.sleep(2000);
 		
 	}
 	
-	public boolean isElementSelected(By byValue) {
-		if (driver.findElement(byValue).isSelected()){
-			return true;			
-		} else {
-			return false;
-		}
-		
-	}
+
+
 	
 	@AfterTest
 	public void afterTest() {
