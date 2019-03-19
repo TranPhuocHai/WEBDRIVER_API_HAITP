@@ -33,7 +33,7 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
 	  	  
 	  }
   
-  @Test (enabled = false)
+  @Test (enabled = true)
   public void TC_01_Default_Dropdown () throws Exception {	  
   
   driver.get("https://daominhdam.github.io/basic-form/index.html");
@@ -59,7 +59,7 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
   
   }
   
-  @Test (enabled = false)
+  @Test (enabled = true)
   public void TC_02_Jquery_Custom_Dropdown () throws Exception {
 	  driver.get("https://jqueryui.com/resources/demos/selectmenu/default.html");
 	  
@@ -74,38 +74,35 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
 	  
   }
   
-  @Test (enabled = false)
+  @Test (enabled = true)
   public void TC_03_Angular_Custom_Dropdown () throws Exception {
 	  driver.get("https://material.angular.io/components/select/examples");
 	  
-	  selectItem_In_CustomDropdown ("//mat-select[@placeholder='State']", "//mat-option/span", "Hawaii");
-	  Assert.assertTrue(isElementDisplayed("//mat-select[@placeholder='State']//span[text()='Hawaii']"));
-	  
-	  selectItem_In_CustomDropdown ("//mat-select[@placeholder='State']", "//mat-option/span", "Alaska");
-	  Assert.assertTrue(isElementDisplayed("//mat-select[@placeholder='State']//span[text()='Alaska']"));
-	  
-	  selectItem_In_CustomDropdown ("//mat-select[@placeholder='State']", "//mat-option/span", "New York");
-	  Assert.assertTrue(isElementDisplayed("//mat-select[@placeholder='State']//span[text()='New York']"));
+	  selectItem_In_CustomDropdown ("//span[@class='mat-select-placeholder ng-tns-c21-18 ng-star-inserted']", "//span[@class='mat-option-text']", "Hawaii");
+	  Assert.assertTrue(isElementDisplayed("//div[@class='mat-select-value']//span[text()='Hawaii']"));
+
 	  
   }
   
-  @Test (enabled = false)
+  @Test (enabled = true)
   public void TC_04_Telerik_Custom_Dropdown () throws Exception {
 	  driver.get("https://demos.telerik.com/kendo-ui/dropdownlist/index");
 	    
 	  selectItem_In_CustomDropdown("//span[@aria-owns='color_listbox']", "//ul[@id='color_listbox']/child::li", "Orange");
 	  Assert.assertTrue(isElementDisplayed("//input[@id='color']/preceding-sibling::span/span[text()='Orange']"));	  
-	  
-	  selectItem_In_CustomDropdown("//span[@aria-owns='color_listbox']", "//ul[@id='color_listbox']/child::li", "Black");
-	  Assert.assertTrue(isElementDisplayed("//input[@id='color']/preceding-sibling::span/span[text()='Black']"));	 
+	  Thread.sleep(2000);
 	  
 	  selectItem_In_CustomDropdown("//span[@aria-owns='color_listbox']", "//ul[@id='color_listbox']/child::li", "Grey");
 	  Assert.assertTrue(isElementDisplayed("//input[@id='color']/preceding-sibling::span/span[text()='Grey']"));	
+	  Thread.sleep(2000);
 
+	  selectItem_In_CustomDropdown("//span[@aria-owns='color_listbox']", "//ul[@id='color_listbox']/child::li", "Black");
+	  Assert.assertTrue(isElementDisplayed("//input[@id='color']/preceding-sibling::span/span[text()='Black']"));
+	  Thread.sleep(2000);
 	  
   }
   
-  @Test (enabled = false)
+  @Test (enabled = true)
   public void TC_05_Vue_Custom_Dropdown () throws Exception {
 	  driver.get("https://mikerodham.github.io/vue-dropdowns/");
 	  
@@ -124,7 +121,7 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
   
 	  
   
-  @Test (enabled = false)
+  @Test (enabled = true)
   public void TC_06_Custom_Dropdown_Indrimuska_Editable() throws Exception {
 	  driver.get("https://indrimuska.github.io/jquery-editable-select/");
 	  selectItem_In_CustomDropdown ("//div[@id='default-place']/input", "//div[@id='default-place']//li", "Land Rover");
@@ -133,7 +130,7 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
 	  
   }
   
-  @Test (enabled = false)
+  @Test (enabled = true)
   public void TC_07_Multiple_Dropdown() throws Exception {
 	  driver.get("https://multiple-select.wenzhixin.net.cn/examples/#basic.html");
 	  String [] items = {"February", "December", "April"};
@@ -157,7 +154,7 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
   @Test (enabled = true)
   public void TC_08_Multiple_Dropdown_02() throws Exception {
 		driver.get("https://semantic-ui.com/modules/dropdown.html");
-		String [] items = {"CSS", "Ruby", "HTML"};
+		String [] items = {"CSS", "HTML", "Ruby"};
 
 		selectMulti_Item_In_CustomDropdown
 		("//select[@name='skills']/parent::div[@class='ui fluid dropdown selection multiple']", 
@@ -168,7 +165,6 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
 		for (int i=1 ; i <= number_items_selected ; i++) {
 			 
 		 Assert.assertEquals(driver.findElement(By.xpath("//a[@class='ui label transition visible'][" + i +"]")).getText(), items[i-1]); 
-		 //Still not OK, the for loop maybe wrong
 
 		}
 	
@@ -237,15 +233,15 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
 		  for (String item : expected_Item) {
 			  if (childElement.getText().equals(item)) {
 				  javascriptExecutor.executeScript("arguments[0].scrollIntoView(true);", childElement);
-				  Thread.sleep(1500);
+				  Thread.sleep(1000);
 				  javascriptExecutor.executeScript("arguments[0].click();", childElement);
-				  Thread.sleep(1500);
+				  Thread.sleep(1000);
 				  
-				  //Khai báo Element Xpath của các items đã được chọn
+				  //Khai bao element cac item da duoc chon thanh cong
 				  List<WebElement> itemSelected = driver.findElements(By.xpath(selected_items_already));
 				  System.out.println("Number of item selected = " + itemSelected.size());
 				  
-				  // Nếu số lượng item da chọn đã đủ -> break vòng lặp
+				  // So luong item da chon = so luong expected tu chuoi thi break
 				  if(expected_Item.length == itemSelected.size()) {
 					  break;
 				  }
