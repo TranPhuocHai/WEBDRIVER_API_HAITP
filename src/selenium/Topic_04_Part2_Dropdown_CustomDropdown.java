@@ -177,7 +177,12 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
   
 	  WebElement parentDropdown = driver.findElement(By.xpath(parent_Xpath));
 	  //1- click on dropdown by javascriptExecutor
-	  javascriptExecutor.executeScript("arguments[0].click();", parentDropdown);
+	  if(parentDropdown.isDisplayed()) {
+		  parentDropdown.click();
+		  	  }
+	  else {
+	  javascriptExecutor.executeScript("arguments[0].click();", parentDropdown);}
+	  
 	  
 	  // 2- Wait for dropdown loads all items
 	  waitExplicit.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(all_Item_Xpath)));
