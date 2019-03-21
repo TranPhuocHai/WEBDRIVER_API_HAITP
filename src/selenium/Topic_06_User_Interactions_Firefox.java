@@ -30,6 +30,7 @@ public class Topic_06_User_Interactions_Firefox {
 		driver = new FirefoxDriver(ffprofile);
 		action = new Actions(driver);
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		driver.manage().window().maximize();
 	}
 
 	@Test (enabled = true)
@@ -75,7 +76,7 @@ public class Topic_06_User_Interactions_Firefox {
 		Assert.assertEquals(numberItemsSelected.size(), 4);	
 	}
 	
-	@Test (enabled = false)
+	@Test (enabled = true)
 	public void TC_04_DoubleClick () throws Exception {
 		driver.get("http://www.seleniumlearn.com/double-click");
 		WebElement doubleClick = driver.findElement(By.xpath("//button[text()='Double-Click Me!']"));
