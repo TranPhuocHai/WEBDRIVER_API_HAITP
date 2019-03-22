@@ -8,6 +8,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -16,16 +17,18 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import com.sun.xml.internal.ws.api.server.Container;
 
-public class Topic_04_Part2_Dropdown_CustomDropdown {
+public class Topic_04_Part2_Dropdown_CustomDropdown_Firefox {
 	WebDriver driver;
 	WebDriverWait waitExplicit;
 	JavascriptExecutor javascriptExecutor;
 	
   @BeforeTest
   public void beforeTest() {
-	  driver = new FirefoxDriver();
+		System.setProperty("webdriver.gecko.driver","./Resource/geckodriver.exe");
+		FirefoxProfile ffprofile = new FirefoxProfile();
+		ffprofile.setPreference("dom.webnotifications.enabled", false);
+		driver = new FirefoxDriver(ffprofile);
 	  driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	  driver.manage().window().maximize();
 	  waitExplicit = new WebDriverWait(driver, 30);
@@ -33,7 +36,7 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
 	  	  
 	  }
   
-  @Test (enabled = false)
+  @Test (enabled = true)
   public void TC_01_Default_Dropdown () throws Exception {	  
   
   driver.get("https://daominhdam.github.io/basic-form/index.html");
@@ -59,7 +62,7 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
   
   }
   
-  @Test (enabled = false)
+  @Test (enabled = true)
   public void TC_02_Jquery_Custom_Dropdown () throws Exception {
 	  driver.get("https://jqueryui.com/resources/demos/selectmenu/default.html");
 	  
@@ -93,7 +96,7 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
 	  
   }
   
-  @Test (enabled = false)
+  @Test (enabled = true)
   public void TC_05_Vue_Custom_Dropdown () throws Exception {
 	  driver.get("https://mikerodham.github.io/vue-dropdowns/");
 	  
@@ -109,10 +112,8 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
 
 	  
   }
-  
-	  
-  
-  @Test (enabled = false)
+     
+  @Test (enabled = true)
   public void TC_06_Custom_Dropdown_Indrimuska_Editable() throws Exception {
 	  driver.get("https://indrimuska.github.io/jquery-editable-select/");
 	  selectItem_In_CustomDropdown ("//div[@id='default-place']/input", "//div[@id='default-place']//li", "Land Rover");
@@ -121,7 +122,7 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
 	  
   }
   
-  @Test (enabled = false)
+  @Test (enabled = true)
   public void TC_07_Multiple_Dropdown() throws Exception {
 	  driver.get("https://multiple-select.wenzhixin.net.cn/examples/#basic.html");
 	  String [] items = {"February", "December", "April"};
@@ -142,7 +143,7 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
 	  
   }
   
-  @Test (enabled = false)
+  @Test (enabled = true)
   public void TC_08_Multiple_Dropdown_02() throws Exception {
 		driver.get("https://semantic-ui.com/modules/dropdown.html");
 		String [] items = {"CSS", "HTML", "Ruby"};
@@ -162,7 +163,6 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
 
 
   }
-
   
   public void selectItem_In_CustomDropdown (String parent_Xpath, String all_Item_Xpath, String expected_Item) throws Exception {
   
@@ -199,8 +199,6 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
 		  
 	  }	  
   }
-
-
   
   public boolean isElementDisplayed (String valueXpath) {
 	  WebElement element = driver.findElement(By.xpath(valueXpath));
@@ -213,8 +211,7 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
 		  return false;
 	  }	  
   }
-  
-	  
+  	  
   public void selectMulti_Item_In_CustomDropdown (String parent_Xpath, String all_Item_Xpath, String [] expected_Item, String selected_items_already) throws Exception {
 	  WebElement parentDropdown = driver.findElement(By.xpath(parent_Xpath));
 	  //1- click on dropdown by javascriptExecutor
@@ -277,8 +274,6 @@ public class Topic_04_Part2_Dropdown_CustomDropdown {
 	  
 	  
   }
-  
-
   
   @AfterTest
   public void afterTest() {
