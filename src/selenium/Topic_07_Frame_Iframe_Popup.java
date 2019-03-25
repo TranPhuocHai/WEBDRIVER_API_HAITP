@@ -32,7 +32,8 @@ public class Topic_07_Frame_Iframe_Popup {
 		//declare notification iframe
 		List <WebElement> notificationIframe = driver.findElements(By.xpath("//iframe[@id='vizury-notification-template']"));
 		int notificationIframeSize = notificationIframe.size();
-		System.out.println("Notification iframe displayed = " + notificationIframeSize);
+		System.out.println("Notification iframe displayed = " + notificationIframeSize
+				+"\n *NOTE* 1 - popup appears, 0 - popup does not appear");
 		
 		// size >0 means popup appears
 		if (notificationIframeSize > 0) {
@@ -97,11 +98,14 @@ public class Topic_07_Frame_Iframe_Popup {
 		
 	}
 	
-	// Check all real images are loaded successfully, using JSExcutor
-	public boolean isImageLoadedSuccess (WebElement loaded) {		
-		return (boolean) ((JavascriptExecutor) driver).executeScript("return arguments[0].complete && typeof arguments[0].naturalWidth != \"undefined\" && arguments[0].naturalWidth > 0",
-				loaded);
+	// Verfiy real image loaded successfully
+	public boolean isImageLoadedSuccess(WebElement imgLoaded) {
+		JavascriptExecutor jsexecutor = (JavascriptExecutor) driver;
+		return (boolean) jsexecutor.executeScript("return arguments[0].complete && typeof arguments[0].naturalWidth != \"undefined\" && arguments[0].naturalWidth > 0",
+				imgLoaded);
+		
 	}
+
 	
 
 	@AfterTest
