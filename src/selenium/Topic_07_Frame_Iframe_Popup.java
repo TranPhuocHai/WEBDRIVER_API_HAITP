@@ -32,7 +32,7 @@ public class Topic_07_Frame_Iframe_Popup {
 		//declare notification iframe
 		List <WebElement> notificationIframe = driver.findElements(By.xpath("//iframe[@id='vizury-notification-template']"));
 		int notificationIframeSize = notificationIframe.size();
-		System.out.println("");
+		System.out.println("Notification iframe displayed = " + notificationIframeSize);
 		
 		// size >0 means popup appears
 		if (notificationIframeSize > 0) {
@@ -54,32 +54,40 @@ public class Topic_07_Frame_Iframe_Popup {
 		
 		
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		
+		//switch to iframe
 		driver.switchTo().frame(driver.findElement(By.xpath("//div[@class='flipBannerWrap']//iframe[contains(@id,'viz_iframe')] ")));
+		
+		//Verify text "What are you looking for?" display
 		Assert.assertTrue(driver.findElement(By.xpath("//span[@id='messageText' and text()='What are you looking for?']")).isDisplayed());
 		
+		//switch back to Top-windows
 		driver.switchTo().defaultContent();	
 		
 		WebElement slidingBannerIframe = driver.findElement(By.xpath("//div[@class='slidingbanners']//iframe"));
+		
+		//switch to iframe
 		driver.switchTo().frame(slidingBannerIframe);
 		
 		List <WebElement> slidingBannerImg = driver.findElements(By.xpath("//div[@id='productcontainer']//img"));
 		Assert.assertEquals(slidingBannerImg.size(), 6);		
 		//Check all images loaded successfully
-		for (int i=0; i<= slidingBannerImg.size(); i++) {
+		for (int i=0; i< slidingBannerImg.size(); i++) {
 			if(isImageLoadedSuccess(slidingBannerImg.get(i))) {
 				System.out.println("Sliding banner Image " +(i+1)+ " loaded sucessfully");
 			}
 			
 		}
 		
+		//switch back to Top-windows
 		driver.switchTo().defaultContent();	
-		Assert.assertTrue(driver.findElement(By.xpath("//div[@class='flipBanner'])")).isDisplayed());		
+		Assert.assertTrue(driver.findElement(By.xpath("//div[@class='flipBanner']")).isDisplayed());		
 		
 		List <WebElement> flipBannerImg = driver.findElements(By.xpath("//div[@class='flipBanner']//img[@class='front icon']"));
 
 		Assert.assertEquals(flipBannerImg.size(), 8);
 		//Check all images loaded successfully
-		for (int i=0; i<= flipBannerImg.size(); i++) {
+		for (int i=0; i< flipBannerImg.size(); i++) {
 			if(isImageLoadedSuccess(flipBannerImg.get(i)) && flipBannerImg.get(i).isDisplayed()) {
 				System.out.println("Flip banner Image " +(i+1)+ " loaded sucessfully");
 			}
@@ -89,6 +97,7 @@ public class Topic_07_Frame_Iframe_Popup {
 		
 	}
 	
+	// Check all real images are loaded successfully, using JSExcutor
 	public boolean isImageLoadedSuccess (WebElement loaded) {		
 		return (boolean) ((JavascriptExecutor) driver).executeScript("return arguments[0].complete && typeof arguments[0].naturalWidth != \"undefined\" && arguments[0].naturalWidth > 0",
 				loaded);
