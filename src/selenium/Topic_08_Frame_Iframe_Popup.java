@@ -13,7 +13,7 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-public class Topic_07_Frame_Iframe_Popup {
+public class Topic_08_Frame_Iframe_Popup {
     WebDriver driver;
 
 

@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.interactions.Actions;
@@ -16,7 +17,7 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-public class Topic_06_User_Interactions_Firefox {
+public class Topic_07_User_Interactions {
 
     WebDriver driver;
     Actions action;
@@ -24,11 +25,19 @@ public class Topic_06_User_Interactions_Firefox {
 
 	@BeforeTest
 	public void beforeTest() {
+		
+		// for chrome
+//		System.setProperty("webdriver.chrome.driver",".\\lib\\chromedriver.exe");
+//		driver = new ChromeDriver();
+//		action = new Actions(driver);
+		
+		//For firefox
 		System.setProperty("webdriver.gecko.driver","./Resource/geckodriver.exe");
 		FirefoxProfile ffprofile = new FirefoxProfile();
 		ffprofile.setPreference("dom.webnotifications.enabled", false);
 		driver = new FirefoxDriver(ffprofile);
 		action = new Actions(driver);
+		
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 	}

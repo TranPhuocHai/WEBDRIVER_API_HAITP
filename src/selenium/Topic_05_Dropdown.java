@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -18,13 +19,18 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 
-public class Topic_04_Part2_Dropdown_CustomDropdown_Firefox {
+public class Topic_05_Dropdown {
 	WebDriver driver;
 	WebDriverWait waitExplicit;
 	JavascriptExecutor javascriptExecutor;
 	
   @BeforeTest
   public void beforeTest() {
+	  // For chrome
+//	  System.setProperty("webdriver.chrome.driver",".\\lib\\chromedriver.exe");
+//	  driver = new ChromeDriver();
+	  
+	  //For firefox
 		System.setProperty("webdriver.gecko.driver","./Resource/geckodriver.exe");
 		FirefoxProfile ffprofile = new FirefoxProfile();
 		ffprofile.setPreference("dom.webnotifications.enabled", false);

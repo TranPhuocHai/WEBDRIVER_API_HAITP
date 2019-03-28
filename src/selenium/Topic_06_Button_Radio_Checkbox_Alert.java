@@ -13,7 +13,7 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-public class Topic_05_Button_Radio_Checkbox_Alert {
+public class Topic_06_Button_Radio_Checkbox_Alert {
     WebDriver driver;
     JavascriptExecutor jsExecutor;
 
