@@ -67,6 +67,29 @@ public class Topic_09_Window_Tab {
 		
 		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 		
+		//****************************************************************************************
+		//Handle new pop-up
+		List <WebElement> newPopup = driver.findElements(By.xpath("//img[@class='popupbanner']"));
+		
+		int newPopupSize = newPopup.size();
+		if (newPopupSize == 1) {
+			System.out.println("New popup is displayed");
+		} else 
+		{System.out.println("New popup is NOT displayed");}
+		
+		// size >0 means popup appears
+		if (newPopupSize > 0) {
+
+			// Use Click of javascript
+			jsExecutor.executeScript("arguments[0].click();", driver.findElement(By.xpath("//img[@class='popupCloseButton']")));
+			System.out.println("Close popup successfully");
+			
+			//switch back to Top-windows
+			driver.switchTo().defaultContent();				
+		}
+		System.out.println("Passed handle popup");
+		
+		//****************************************************************************************
 		//Step 02 - handle pop-up
 		//declare notification iframe
 		List <WebElement> notificationIframe = driver.findElements(By.xpath("//iframe[@id='vizury-notification-template']"));
@@ -94,6 +117,8 @@ public class Topic_09_Window_Tab {
 			driver.switchTo().defaultContent();				
 		}
 		System.out.println("Passed handle popup");
+		
+		
 		String parentID = driver.getWindowHandle();
 		
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
