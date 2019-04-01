@@ -15,8 +15,11 @@ import org.testng.annotations.Test;
 
 
 public class Topic_10_Javascript_Executor {
-    WebDriver driver;
+    WebDriver driver;    
 
+	String customerName, gender, dateOfBirth, address, city, state, pin, phone, email, password, customerID;
+	String dateOfBirth_out,dd, mm, yyyy;
+	
     @BeforeTest
 	public void beforeTest() {	
 
@@ -24,6 +27,25 @@ public class Topic_10_Javascript_Executor {
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+
+		//Prepare data test 
+		customerName = "Tran Phuoc Hai"; 
+		gender = "male"; 
+		
+		dd = "31"; mm = "07"; yyyy = "1988";		  
+		dateOfBirth = mm+"/"+dd+"/"+yyyy ;	
+		System.out.println("dateOfBirth is: " + dateOfBirth);
+		dateOfBirth_out = yyyy+"-"+mm+"-"+dd;
+		System.out.println("dateOfBirth output is: " + dateOfBirth_out);
+		
+		address = "100 Ho Guom"; 
+		city = "Ha Noi"; 
+		state = "Hoan Kiem"; 
+		pin = "600000"; 
+		phone = "0987654321"; 
+		email = "tranphuochai" + randomNumber() + "@gmail.com" ;
+		password = "automationtesting2019";
+		
 
 	}
     
@@ -83,9 +105,7 @@ public class Topic_10_Javascript_Executor {
 		
 		//Step 04 - input all valid data
 		
-		//declare variable
-		String customerName, gender, dateOfBirth, address, city, state, pin, phone, email, password, customerID;
-		String dateOfBirth_out,dd, mm, yyyy;
+
 		
 		//Locate Element of input data for creating new customer
 		By customerNameTexbox = By.xpath("//input[@name='name']");
@@ -111,24 +131,7 @@ public class Topic_10_Javascript_Executor {
 		By outputPhone = By.xpath("//td[text()='Mobile No.']/following-sibling::td");
 		By outputEmail = By.xpath("//td[text()='Email']/following-sibling::td");
 		
-		//Prepare data test for creating new customer
-		  customerName = "Tran Phuoc Hai"; 
-		  gender = "male"; 
-		  
-		  dd = "31"; mm = "07"; yyyy = "1988";		  
-		  dateOfBirth = mm+"/"+dd+"/"+yyyy ;	
-		  System.out.println("dateOfBirth is: " + dateOfBirth);
-		  dateOfBirth_out = yyyy+"-"+mm+"-"+dd;
-		  System.out.println("dateOfBirth output is: " + dateOfBirth_out);
-		  
-		  address = "100 Ho Guom"; 
-		  city = "Ha Noi"; 
-		  state = "Hoan Kiem"; 
-		  pin = "600000"; 
-		  phone = "0987654321"; 
-		  email = "tranphuochai" + randomNumber() + "@gmail.com" ;
-		  password = "automationtesting2019";
-		  
+
 		  
 		  //Send data to create new customer
 		  driver.findElement(customerNameTexbox).sendKeys(customerName);
@@ -174,7 +177,45 @@ public class Topic_10_Javascript_Executor {
 	}
 	
 	@Test (enabled = true)
-	public void TC_03_Create_An_Account() {
+	public void TC_03_Create_An_Account() throws Exception {
+		driver.get("http://live.guru99.com/");
+		
+		WebElement myAccountLink = driver.findElement(By.xpath("//div[@class='footer']//a[@title='My Account']"));
+		highlightElement(myAccountLink);
+		clickToElementByJS(myAccountLink);
+		
+		WebElement createAccountButton = driver.findElement(By.xpath("//span[text()='Create an Account']"));
+		highlightElement(createAccountButton);
+		clickToElementByJS(createAccountButton);
+		
+		driver.findElement(By.xpath("//input[@id='firstname']")).sendKeys("Hai");
+		driver.findElement(By.xpath("//input[@id='middlename']")).sendKeys("Phuoc");
+		driver.findElement(By.xpath("//input[@id='lastname']")).sendKeys("Tran");
+		driver.findElement(By.xpath("//input[@id='email_address']")).sendKeys(email);
+		driver.findElement(By.xpath("//input[@id='password']")).sendKeys(password);
+		driver.findElement(By.xpath("//input[@id='confirmation']")).sendKeys(password);
+		
+		WebElement RegisterBtn = driver.findElement(By.xpath("//span[contains(text(),'Register')]"));
+		highlightElement(RegisterBtn);
+		clickToElementByJS(RegisterBtn);
+		
+		WebElement thankYouMessage = driver.findElement(By.xpath("//span[text()='Thank you for registering with Main Website Store.']"));
+		String innermessage = (String) executeForBrowser("return document.documentElement.innerText");
+		Assert.assertTrue(innermessage.contains(thankYouMessage.getText()));
+		
+		WebElement AccountBtn = driver.findElement(By.xpath("//span[@class='label' and contains(text(),'Account')]"));
+		highlightElement(AccountBtn);
+		clickToElementByJS(AccountBtn);
+		
+		WebElement logOutBtn = driver.findElement(By.xpath("//a[@title='Log Out']"));
+		highlightElement(logOutBtn);
+		clickToElementByJS(logOutBtn);
+		
+		Thread.sleep(7000);
+		
+		String homePageTitle = (String) executeForBrowser("return document.title");
+		Assert.assertEquals(homePageTitle, "Home page");
+		
 		
 	}
 
@@ -183,7 +224,7 @@ public class Topic_10_Javascript_Executor {
 	@AfterTest
 	public void afterTest() {
 		driver.quit();
-	}
+	}//span[@class='label' and contains(text(),'Account')]
 	
 	
 	
@@ -191,7 +232,7 @@ public class Topic_10_Javascript_Executor {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].style.border='6px groove red'", element);
         try {
-			Thread.sleep(3000);
+			Thread.sleep(1500);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
