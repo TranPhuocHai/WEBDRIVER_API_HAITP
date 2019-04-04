@@ -56,24 +56,29 @@ public class Topic_11_Upload_Files {
 		System.out.println(fileNamePath03);
 	}
 
-	@Test (enabled = false)
+	@Test (enabled = true)
 	public void TC_01_SendKeys_UploadMultiple_Queue() throws Exception {
 		driver.get("https://blueimp.github.io/jQuery-File-Upload/");
+		Thread.sleep(3000);
 		
 		//Upload 3 files
 		for (String file:Allfiles) {
 			WebElement uploadFile = driver.findElement(By.xpath("//input[@name='files[]']"));
 			uploadFile.sendKeys(file);	
-			Thread.sleep(1000);
+			Thread.sleep(2000);
 		}
 		
-		//Verify pickup 3 files successfully
-		for(String filename:AllfileNames) {
-			Assert.assertTrue(driver.findElement(By.xpath("//p[text()='"+filename+"']")).isDisplayed());	
-		}
 						
 		//Click upload button
-		driver.findElement(By.xpath(" //span[text()='Start upload']")).click();
+		WebElement UploadBtn = driver.findElement(By.xpath(" //span[text()='Start upload']"));
+		if(driver.toString().contains("internet explorer")) {
+			clickToElementByJS(UploadBtn);
+			System.out.println("Click by JS for ie");
+		} else {
+			UploadBtn.click();
+			System.out.println("Click by selenium builtin");
+		}			
+				
 		
 		//verfiy upload 3 files successfully 
 		for(String filename:AllfileNames) {
