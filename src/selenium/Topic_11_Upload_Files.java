@@ -4,7 +4,6 @@ import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -16,6 +15,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
@@ -26,11 +27,13 @@ public class Topic_11_Upload_Files {
 
     //If we want to upload file, we need to get path of file
     String rootFolder = System.getProperty("user.dir");
+    String imageUpload = "imageupload.png";
     String fileName01 = "image 01.png";
     String fileName02 = "image 02.png";
     String fileName03 = "image 03.png";
     String [] AllfileNames = {fileName01,fileName02,fileName03};
     
+    String imageUploadPath = rootFolder + "\\uploadFiles\\"+ imageUpload;
     String fileNamePath01 = rootFolder + "\\uploadFiles\\"+ fileName01;
     String fileNamePath02 = rootFolder + "\\uploadFiles\\"+ fileName02;
     String fileNamePath03 = rootFolder + "\\uploadFiles\\"+ fileName03;    
@@ -44,12 +47,12 @@ public class Topic_11_Upload_Files {
 	public void beforeTest() {
 		
 		/*  ---  Firefox  ---   */
-		System.setProperty("webdriver.gecko.driver",".\\lib\\geckodriver.exe");
-		driver = new FirefoxDriver();
+//		System.setProperty("webdriver.gecko.driver",".\\lib\\geckodriver.exe");
+//		driver = new FirefoxDriver();
 		
 		/*  ---  Chrome  ---  */
-//		System.setProperty("webdriver.chrome.driver",".\\lib\\chromedriver.exe");
-//		driver = new ChromeDriver();
+		System.setProperty("webdriver.chrome.driver",".\\lib\\chromedriver.exe");
+		driver = new ChromeDriver();
 		
 		/*  ---   ie  ---   */
 //		System.setProperty("webdriver.ie.driver",".\\lib\\IEDriverServer.exe");
@@ -60,7 +63,7 @@ public class Topic_11_Upload_Files {
 
 	}
 
-//	@Test
+	@Test
 	public void TC_01_SendKeys_UploadMultiple_Queue() throws Exception {
 		driver.get("https://blueimp.github.io/jQuery-File-Upload/");
 		Thread.sleep(3000);
@@ -94,7 +97,7 @@ public class Topic_11_Upload_Files {
 				
 	}
 	
-//	@Test
+	@Test
 	public void TC_02_SendKeys_UploadMultiple_Once() throws Exception {
 		driver.get("https://blueimp.github.io/jQuery-File-Upload/");
 		Thread.sleep(3000);
@@ -128,7 +131,7 @@ public class Topic_11_Upload_Files {
 
 	}
 	
-//	@Test
+	@Test
 	public void TC_03_Upload_By_AutoIT() throws Exception {
 		driver.get("https://blueimp.github.io/jQuery-File-Upload/");	
 		Thread.sleep(3000);
@@ -180,7 +183,7 @@ public class Topic_11_Upload_Files {
 		
 	}
 	
-//	@Test
+	@Test
 	public void TC_04_Upload_By_Robot() throws Exception {
 		driver.get("https://blueimp.github.io/jQuery-File-Upload/");	
 		Thread.sleep(3000);
@@ -260,41 +263,47 @@ public class Topic_11_Upload_Files {
 		driver.get("https://encodable.com/uploaddemo/");
 		
 		//Delaire variable
-		String email = "hai.gsd@gmail.com", firstName = "Hai", folderName = "Selenium" + randomNumber();
+		String email = "hai.gsd@gmail.com", firstName = "Hai", folderName = "tranphuochai" + randomNumber();
 		
 		// Step 02 - Choose Files to Upload (Ex: UploadFile.jpg)
 		WebElement chooseFilesBtn = driver.findElement(By.xpath("//input[@type='file']"));
-		chooseFilesBtn.sendKeys(fileNamePath01);
+		chooseFilesBtn.sendKeys(imageUploadPath);
 		Thread.sleep(3000);
 		
 		//Step 03 - Select dropdown (Upload to: /uploaddemo/files/)
-		
-		
+		select_Dropdown("//select[@name='subdir1']", "//select[@name='subdir1']/option", "/uploaddemo/files/");		
 		
 		// Step 04 - Input random folder to 'New subfolder? Name:) textbox 
-		
-		
+		WebElement newSubFolfer = driver.findElement(By.xpath("//input[@id='newsubdir1']"));
+		newSubFolfer.sendKeys(folderName);		
 		
 		// Step 05 - Input email and firstname
-		
+		WebElement emailInput = driver.findElement(By.xpath("//input[@id='formfield-email_address']"));
+		WebElement firstnameInput = driver.findElement(By.xpath("//input[@id='formfield-first_name']"));
+		emailInput.sendKeys(email);
+		firstnameInput.sendKeys(firstName);		
 		
 		//Step 06 - Click Begin Upload (Note: Wait for page load successfully)
-		
+		driver.findElement(By.xpath("//input[@value='Begin Upload']")).click();
+		Thread.sleep(5000);
 		
 		
 		// Step 07 - Verify information
 		   // + Email Address
 		    //+ File name
-		
-		
+		isElementDisplayed("//dl[@id='fcuploadsummary']/dd[text()='Email Address: "+ email +"']");
+		isElementDisplayed("//dl[@id='fcuploadsummary']//a[text()='"+ imageUpload +"']");	
 		
 		// Step 08 - Click 'View Uploaded Files' link
-		
+		WebElement viewUpload = driver.findElement(By.xpath("//div[@id='fcfooter-text']//a[text()='View Uploaded Files']"));
+		viewUpload.click();
 		
 		// Step 09 - Click to random folder
-		
+		WebElement viewFolder = driver.findElement(By.xpath("//a[text()='"+ folderName +"']"));
+		viewFolder.click();		
 		
 		// Step 10 - Verify file name exist in folder (UploadFile.jpg)
+		isElementDisplayed("//a[text()='" + imageUpload + "']");
 		
 	}
 	
@@ -303,15 +312,55 @@ public class Topic_11_Upload_Files {
 		driver.quit();
 	}
 	
-    public Object clickToElementByJS(WebElement element) {
+	public Object clickToElementByJS(WebElement element) {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		return js.executeScript("arguments[0].click();", element);
+	}
+	
+    public Object scrollToElement(WebElement element) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        return js.executeScript("arguments[0].click();", element);
-}
+        return js.executeScript("arguments[0].scrollIntoView(true);", element);
+    }
 	public int randomNumber() {
 		Random ran = new Random();
 		int number = ran.nextInt(999999);
 		return number;
 	}
+	
+	public void select_Dropdown (String parent, String allItems, String expectedItem) throws Exception {
+		WebElement parentElement = driver.findElement(By.xpath(parent));
+		if (parentElement.isDisplayed()) {
+			parentElement.click();
+		} else {
+			clickToElementByJS(parentElement);			
+		}
+		
+		  List <WebElement> allItemsElement = driver.findElements(By.xpath(allItems));
+		  for (WebElement itemElement : allItemsElement) {
+			  if(itemElement.getText().equals(expectedItem)) {
+				  scrollToElement(itemElement);
+				  Thread.sleep(1000);
+					if (itemElement.isDisplayed()) {
+						itemElement.click();
+					} else {
+						clickToElementByJS(itemElement);			
+					}
+					Thread.sleep(1000);
+					break;
+			  }
+		  }
+		  
+	}
+	  public boolean isElementDisplayed (String valueXpath) {
+		  WebElement element = driver.findElement(By.xpath(valueXpath));
+		  if (element.isDisplayed()) {
+			 		  return true;
+		  }		  else {
+			  return false;
+		  }	  
+	  }
+	
+	
 
 }
 
