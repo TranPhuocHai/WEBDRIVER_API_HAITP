@@ -32,10 +32,8 @@ public class Topic_07_User_Interactions {
 //		action = new Actions(driver);
 		
 		//For firefox
-		System.setProperty("webdriver.gecko.driver","./Resource/geckodriver.exe");
-		FirefoxProfile ffprofile = new FirefoxProfile();
-		ffprofile.setPreference("dom.webnotifications.enabled", false);
-		driver = new FirefoxDriver(ffprofile);
+		System.setProperty("webdriver.chrome.driver",".\\lib\\chromedriver.exe");
+		driver = new ChromeDriver();
 		action = new Actions(driver);
 		
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);

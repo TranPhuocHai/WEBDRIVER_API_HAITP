@@ -31,10 +31,8 @@ public class Topic_05_Dropdown {
 //	  driver = new ChromeDriver();
 	  
 	  //For firefox
-		System.setProperty("webdriver.gecko.driver","./Resource/geckodriver.exe");
-		FirefoxProfile ffprofile = new FirefoxProfile();
-		ffprofile.setPreference("dom.webnotifications.enabled", false);
-		driver = new FirefoxDriver(ffprofile);
+		System.setProperty("webdriver.chrome.driver",".\\lib\\chromedriver.exe");
+		driver = new ChromeDriver();
 	  driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	  driver.manage().window().maximize();
 	  waitExplicit = new WebDriverWait(driver, 30);

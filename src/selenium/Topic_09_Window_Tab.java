@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.testng.Assert;
@@ -22,9 +23,8 @@ public class Topic_09_Window_Tab {
 
     @BeforeTest
 	public void beforeTest() {		
-	    FirefoxProfile profile = new FirefoxProfile();
-	    profile.setPreference("network.proxy.type", 0);
-	    driver = new FirefoxDriver(profile);
+		System.setProperty("webdriver.chrome.driver",".\\lib\\chromedriver.exe");
+		driver = new ChromeDriver();
 	    jsExecutor = (JavascriptExecutor) driver;
 	}
 
