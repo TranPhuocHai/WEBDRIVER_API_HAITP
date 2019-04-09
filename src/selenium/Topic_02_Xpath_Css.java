@@ -5,6 +5,7 @@ import java.util.Random;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
@@ -22,15 +23,18 @@ public class Topic_02_Xpath_Css {
 
 	@BeforeTest
 	public void beforeTest() throws Exception {
-		driver = new FirefoxDriver();
+		System.setProperty("webdriver.chrome.driver",".\\lib\\chromedriver.exe"); driver = new ChromeDriver();
+//		System.setProperty("webdriver.gecko.driver",".\\lib\\geckodriver.exe"); driver = new FirefoxDriver();
+//		System.setProperty("webdriver.ie.driver",".\\lib\\IEDriverServer.exe"); driver = new InternetExplorerDriver();
+		
+		
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.manage().window().maximize(); 
 		driver.get("http://live.guru99.com/");
-		Thread.sleep(5000);
 		
 	}
 
-	@Test
+	@Test (enabled = false)
 	public void TC_01_Login_Empty() throws Exception {
 		driver.findElement(By.xpath("//div[@class='footer']//a[@title='My Account']")).click();
 		Thread.sleep(2000);
@@ -45,7 +49,7 @@ public class Topic_02_Xpath_Css {
 		Assert.assertEquals(passRequired, "This is a required field.");
 	}
 	
-	@Test
+	@Test (enabled = false)
 	public void TC_02_Login_With_Email_Invalid() throws Exception {
 		driver.findElement(By.xpath("//div[@class='footer']//a[@title='My Account']")).click();
 		Thread.sleep(2000);
@@ -58,7 +62,7 @@ public class Topic_02_Xpath_Css {
 		
 	}
 	
-	@Test
+	@Test (enabled = false)
 	public void TC_03_Login_With_PW_Lessthan_6Characters() throws Exception {
 		driver.findElement(By.xpath("//div[@class='footer']//a[@title='My Account']")).click();
 		Thread.sleep(2000);
@@ -71,7 +75,7 @@ public class Topic_02_Xpath_Css {
 		
 	} 
 	
-	@Test
+	@Test (enabled = false)
 	public void TC_04_Login_With_PW_Incorrect() throws Exception {
 		driver.findElement(By.xpath("//div[@class='footer']//a[@title='My Account']")).click();
 		Thread.sleep(2000);
