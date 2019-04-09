@@ -33,11 +33,9 @@ public class Topic_12_Wait {
 
 /* Topic_01 +Check "Hello World!" text visible 
  * In this case, Hello World text Element is N/A in DOM (it's only visible after clicking Start Button 5s)
- * 	If using only Implicit Wait: at least 5s for passed result
- * 	If using Implicit
  * */
-@Test (enabled = true)
-	public void TC_04_Expli_4S_Impli_1_5_S_Visibility() {
+@Test (enabled = false)
+	public void TC_01_Expli_4S_Impli_1_5_S_Visibility() {
 		driver.manage().timeouts().implicitlyWait(1500, TimeUnit.MILLISECONDS);
 		driver.get("https://the-internet.herokuapp.com/dynamic_loading/2");
 		driver.findElement(StartButton).click();
@@ -45,10 +43,10 @@ public class Topic_12_Wait {
 		System.out.println("TC_01_Wait starts:"+new Date());
 		waitExplicit.until(ExpectedConditions.visibilityOfElementLocated(HelloWorldText)); 
 		System.out.println("TC_01_Wait ends:"+new Date());
-		System.out.println("-----------------------------");
+		System.out.println("-----------------------------------------------------");
 	}
 	
-	@Test (enabled = true)
+	@Test (enabled = false)
 	public void TC_02_Expli_4S_Impli_2S_Visibility() {
 		driver.manage().timeouts().implicitlyWait(2000, TimeUnit.MILLISECONDS);
 		driver.get("https://the-internet.herokuapp.com/dynamic_loading/2");
@@ -57,10 +55,10 @@ public class Topic_12_Wait {
 		System.out.println("TC_02_Wait starts:"+new Date());
 		waitExplicit.until(ExpectedConditions.visibilityOfElementLocated(HelloWorldText)); 
 		System.out.println("TC_02_Wait ends:"+new Date());
-		System.out.println("-----------------------------");
+		System.out.println("-----------------------------------------------------");
 	}
 	
-	@Test (enabled = true)
+	@Test (enabled = false)
 	public void TC_03_Expli_4S_Impli_3S_Visibility() {
 		driver.manage().timeouts().implicitlyWait(3000, TimeUnit.MILLISECONDS);
 		driver.get("https://the-internet.herokuapp.com/dynamic_loading/2");
@@ -69,11 +67,11 @@ public class Topic_12_Wait {
 		System.out.println("TC_03_Wait starts:"+new Date());
 		waitExplicit.until(ExpectedConditions.visibilityOfElementLocated(HelloWorldText)); 
 		System.out.println("TC_03_Wait ends:"+new Date());
-		System.out.println("-----------------------------");
+		System.out.println("-----------------------------------------------------");
 		
 	}
 	
-	@Test (enabled = true)
+	@Test (enabled = false)
 	public void TC_04_Only_ImplicitWait_2S_FAILED() {
 		driver.get("https://the-internet.herokuapp.com/dynamic_loading/2");
 		driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
@@ -82,7 +80,7 @@ public class Topic_12_Wait {
 		
 	}
 	
-	@Test (enabled = true)
+	@Test (enabled = false)
 	public void TC_05_Only_ImplicitWait_5S_PASSED() {
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		driver.get("https://the-internet.herokuapp.com/dynamic_loading/2");
@@ -92,9 +90,9 @@ public class Topic_12_Wait {
 	}
 
 /* Topic_02: Check Loading bar invisible before Hello World! text displays 
- * In this case, check Loading bar invisible only Explicit Wait
+ * In this case, check Loading bar is available in DOM so Implicit does not affect to wait, only Explicit
  * */
-	@Test (enabled = true)
+	@Test (enabled = false)
 	public void TC_06_FAILED() {
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		driver.get("https://the-internet.herokuapp.com/dynamic_loading/2");
@@ -105,7 +103,7 @@ public class Topic_12_Wait {
 		
 	}
 	
-	@Test (enabled = true)
+	@Test (enabled = false)
 	public void TC_07_PASSED() {
 		driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
 		driver.get("https://the-internet.herokuapp.com/dynamic_loading/2");
@@ -116,7 +114,7 @@ public class Topic_12_Wait {
 		
 	}
 	
-	@Test (enabled = true)
+	@Test (enabled = false)
 	public void TC_08_FAILED() {
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		driver.get("https://the-internet.herokuapp.com/dynamic_loading/2");
@@ -129,32 +127,171 @@ public class Topic_12_Wait {
 
 	/* Topic_03 
 	 * */
-	@Test (enabled = true)
+	@Test (enabled = false)
 	public void TC_09_Expli_2S_Impli_5S_PASSED() {
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		driver.get("https://the-internet.herokuapp.com/dynamic_loading/2");
 		driver.findElement(StartButton).click();
 		waitExplicit = new WebDriverWait(driver, 2);
-		System.out.println("TC_01_Wait starts:"+new Date());
+		System.out.println("TC_09_Wait starts:"+new Date());
 		waitExplicit.until(ExpectedConditions.visibilityOfElementLocated(HelloWorldText)); 
-		System.out.println("TC_01_Wait ends:"+new Date());
-		System.out.println("-----------------------------");
+		System.out.println("TC_09_Wait ends:"+new Date());
+		System.out.println("-----------------------------------------------------");
 		Assert.assertTrue(driver.findElement(HelloWorldText).isDisplayed());
 	}
 	
-	@Test (enabled = true)
+	@Test (enabled = false)
 		public void TC_10_Expli_2S_Impli_3S_FALED() {
 			driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 			driver.get("https://the-internet.herokuapp.com/dynamic_loading/2");
 			driver.findElement(StartButton).click();
 			waitExplicit = new WebDriverWait(driver, 2);
-			System.out.println("TC_01_Wait starts:"+new Date());
+			System.out.println("TC_10_Wait starts:"+new Date());
 			waitExplicit.until(ExpectedConditions.visibilityOfElementLocated(HelloWorldText)); 
-			System.out.println("TC_01_Wait ends:"+new Date());
-			System.out.println("-----------------------------");
+			System.out.println("TC_10_Wait ends:"+new Date());
+			System.out.println("-----------------------------------------------------");
 			Assert.assertTrue(driver.findElement(HelloWorldText).isDisplayed());
 		}
 	
+	/* Topic_04
+	 * */
+	@Test (enabled = false)
+	public void TC_11_ExplicitWait_Hello_Invisible_NOTAvailableInDOM(){
+		
+		driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
+		driver.get("https://the-internet.herokuapp.com/dynamic_loading/2");
+		waitExplicit = new WebDriverWait(driver, 1);
+		
+		driver.findElement(StartButton).click();
+		//Check Time of Hello World Text Invisible but NOT available in DOM
+		System.out.println("TC_11_Wait starts:"+new Date());
+		waitExplicit.until(ExpectedConditions.invisibilityOfElementLocated(HelloWorldText)); 
+		System.out.println("TC_11_Wait ends:"+new Date());
+		System.out.println("-----------------------------------------------------");
+		
+		/*If Implicit <5, TC always PASSED
+		 * If Implicit >5, TC always FAILED
+		 * */
+		
+	}
+	
+	@Test (enabled = false)
+	public void TC_12_ExplicitWait_Hello_Visible_AvailableInDOM(){
+		
+		driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+		driver.get("https://the-internet.herokuapp.com/dynamic_loading/2");
+		waitExplicit = new WebDriverWait(driver, 5);
+		
+		driver.findElement(StartButton).click();
+		//Check Time of Loading Bar invisible
+		System.out.println("TC_12_Wait starts:"+new Date());
+		waitExplicit.until(ExpectedConditions.invisibilityOfElementLocated(LoadingBar)); 
+		System.out.println("TC_12_Wait ends:"+new Date());
+		System.out.println("-----------------------------------------------------");
+		
+		//Check Time of Hello World Text Invisible but Available in DOM
+		System.out.println("TC_12_Wait starts:"+new Date());
+		waitExplicit.until(ExpectedConditions.invisibilityOfElementLocated(HelloWorldText)); 
+		System.out.println("TC_12_Wait ends:"+new Date());
+		System.out.println("-----------------------------------------------------");
+		
+		/*Hello world Text is checked by ExplicitWait only, in this case Test Case always FAILED 
+		 * 
+		 * */ 
+		
+	}
+	
+	@Test (enabled = false)
+	public void TC_13_ExplicitWait_Test04_PASSED(){
+		
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		driver.get("https://the-internet.herokuapp.com/dynamic_loading/2");
+		waitExplicit = new WebDriverWait(driver, 5);
+		//Check Time of Hello World Text Invisible -> Only Impplicit time max 10s
+		System.out.println("TC_13_Wait starts:"+new Date());
+		waitExplicit.until(ExpectedConditions.invisibilityOfElementLocated(HelloWorldText)); 
+		System.out.println("TC_13_Wait ends:"+new Date());
+		System.out.println("-----------------------------------------------------");
+		//Check Time of Loading Bar invisible-> Only Impplicit time max 10s
+		System.out.println("TC_13_Wait starts:"+new Date());
+		waitExplicit.until(ExpectedConditions.invisibilityOfElementLocated(LoadingBar)); 
+		System.out.println("TC_13_Wait ends:"+new Date());
+		System.out.println("-----------------------------------------------------");
+		
+		driver.findElement(StartButton).click();
+		//Check Time of Loading Bar invisible -> Only Explicit 5S, so failed if explicit <5S
+		System.out.println("TC_13_Wait starts:"+new Date());
+		waitExplicit.until(ExpectedConditions.invisibilityOfElementLocated(LoadingBar)); 
+		System.out.println("TC_13_Wait ends:"+new Date());
+		System.out.println("-----------------------------------------------------");
+		
+		//Check Time of Loading Bar invisible -> Explicit 0S, because start button does not available anymore
+		System.out.println("TC_13_Wait starts:"+new Date());
+		waitExplicit.until(ExpectedConditions.invisibilityOfElementLocated(StartButton)); 
+		System.out.println("TC_13_Wait ends:"+new Date());
+		System.out.println("-----------------------------------------------------");
+		
+		
+	}
+	
+	@Test (enabled = false)
+	public void TC_14_ExplicitWait_Test04_PASSED() {
+		
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		driver.get("https://the-internet.herokuapp.com/dynamic_loading/2");
+		waitExplicit = new WebDriverWait(driver, 5);
+		//Check Time of Hello World Text Invisible -> Only Impplicit time max 10s
+		System.out.println("TC_14_Wait starts:"+new Date());
+		waitExplicit.until(ExpectedConditions.invisibilityOfElementLocated(HelloWorldText)); 
+		System.out.println("TC_14_Wait ends:"+new Date());
+		System.out.println("-----------------------------------------------------");
+		//Check Time of Loading Bar invisible-> Only Impplicit time max 10s
+		System.out.println("TC_14_Wait starts:"+new Date());
+		waitExplicit.until(ExpectedConditions.invisibilityOfElementLocated(LoadingBar)); 
+		System.out.println("TC_14_Wait ends:"+new Date());
+		System.out.println("-----------------------------------------------------");
+				
+		driver.findElement(StartButton).click();
+		//Check Time of Loading Bar invisible -> Only Explicit 5S, so failed if explicit <5S
+		System.out.println("TC_14_Wait starts:"+new Date());
+		waitExplicit.until(ExpectedConditions.invisibilityOfElementLocated(LoadingBar)); 
+		System.out.println("TC_14_Wait ends:"+new Date());
+		System.out.println("-----------------------------------------------------");
+		
+		//Check Time of Loading Bar invisible -> Explicit 0S, because start button does not available anymore
+		System.out.println("TC_14_Wait starts:"+new Date());
+		waitExplicit.until(ExpectedConditions.invisibilityOfElementLocated(StartButton)); 
+		System.out.println("TC_14_Wait ends:"+new Date());
+		System.out.println("-----------------------------------------------------");
+	
+		
+	}
+	
+	/*Full Steps with normal case follow flow
+	 * -> click on Start -> wait for Loading bar disappear (after 5s)
+	 * -> verify Hello World visible
+	 * */
+	
+	@Test (enabled = true)
+	public void TC_15_Full() {
+		
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		driver.get("https://the-internet.herokuapp.com/dynamic_loading/2");
+		waitExplicit = new WebDriverWait(driver, 5);
+		driver.findElement(StartButton).click();
+		System.out.println("TC_15_Wait starts:"+new Date());
+		waitExplicit.until(ExpectedConditions.presenceOfElementLocated(LoadingBar)); //0s
+		System.out.println("TC_15_Wait ends:"+new Date());
+		System.out.println("-----------------------------------------------------");
+		//Wait for Loading bar disappear
+		System.out.println("TC_15_Wait starts:"+new Date());
+		waitExplicit.until(ExpectedConditions.invisibilityOfElementLocated(LoadingBar)); //5S
+		System.out.println("TC_15_Wait ends:"+new Date());
+		System.out.println("-----------------------------------------------------");
+		Assert.assertEquals(driver.findElement(HelloWorldText).getText(), "Hello World!");	
+		
+	}
+
 	
 	@AfterTest
 	public void afterTest() {
@@ -163,3 +300,27 @@ public class Topic_12_Wait {
 	
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
