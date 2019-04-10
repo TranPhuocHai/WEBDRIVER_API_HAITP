@@ -40,23 +40,8 @@ public class Topic_07_User_Interactions {
 		driver.manage().window().maximize();
 	}
 
-	@Test (enabled = true)
-	public void TC_01_HoverMouse() throws Exception {
-		
-		driver.get("https://www.myntra.com/");
-		WebElement profileIcon, logInButton,logInBox;
-		profileIcon = driver.findElement(By.xpath("//span[contains(@class,'iconUser')]"));		
-		action.moveToElement(profileIcon).perform();
-		Thread.sleep(1000);
-		
-		logInButton = driver.findElement(By.xpath("//a[text()='log in']"));
-		logInButton.click();	
-		
-		logInBox = driver.findElement(By.xpath("//div[@class='login-box']"));
-		Assert.assertTrue(logInBox.isDisplayed());
-	}
 	
-	@Test (enabled = true)
+	@Test (enabled = false)
 	public void TC_02_ClickAndHold_Block() throws Exception {
 		driver.get("https://jqueryui.com/resources/demos/selectable/display-grid.html");
 		List <WebElement> numberItems = driver.findElements(By.xpath("//ol[@id = 'selectable']/li"));
@@ -67,7 +52,7 @@ public class Topic_07_User_Interactions {
 		Assert.assertEquals(numberItemsSelected.size(), 4);	
 	}
 	
-	@Test (enabled = true)
+	@Test (enabled = false)
 	public void TC_03_ClickAndHold_Random() throws Exception {
 		driver.get("https://jqueryui.com/resources/demos/selectable/display-grid.html");
 		List <WebElement> numberItems = driver.findElements(By.xpath("//ol[@id = 'selectable']/li"));
@@ -87,55 +72,18 @@ public class Topic_07_User_Interactions {
 	public void TC_04_DoubleClick () throws Exception {
 		driver.get("http://www.seleniumlearn.com/double-click");
 		WebElement doubleClick = driver.findElement(By.xpath("//button[text()='Double-Click Me!']"));
-		action.doubleClick(doubleClick).perform();
+		action.click(doubleClick).perform();
 		Thread.sleep(1000);
 		
-		Alert alert = driver.switchTo().alert();
-		Assert.assertEquals(alert.getText(), "The Button was double-clicked.");
-		alert.accept();
+//		action.moveToElement(driver.findElement(By.xpath("//a[contains(text(),'Linux')]")));
 		
 	}
 	
-	@Test (enabled = true)
-	public void TC_05_RightClick () throws Exception {
-		driver.get("https://swisnl.github.io/jQuery-contextMenu/demo.html");
-		WebElement rightClickBnt = driver.findElement(By.xpath("//span[text()='right click me']"));
-		action.contextClick(rightClickBnt);		
-		WebElement quitOption = driver.findElement(By.xpath("//li[contains(@class,'context-menu-icon-quit')]"));
-		action.moveToElement(quitOption).perform();
-		Thread.sleep(1000);
-		
-		WebElement quitHover = driver.findElement(By.xpath(
-				"//li[contains(@class,'context-menu-icon-quit') and contains(@class,'context-menu-visible') and contains(@class,'context-menu-hover')]"));
-		Assert.assertTrue(quitHover.isDisplayed());
-		
-		quitHover.click();
-		Alert alert = driver.switchTo().alert();		
-		Thread.sleep(2000);
-		Assert.assertEquals(alert.getText(), "clicked: quit");
-		alert.accept();
-		Thread.sleep(2000);
-		Assert.assertFalse(quitHover.isDisplayed());				
-		
-	}
-	
-	@Test (enabled = true)
-	public void TC_06_DragAndDrop() throws Exception {
-		driver.get("https://demos.telerik.com/kendo-ui/dragdrop/angular");
-		WebElement smallCircle = driver.findElement(By.xpath("//div[@id='draggable']"));
-		WebElement targetCircle = driver.findElement(By.xpath("//div[@id='droptarget']"));
-		action.dragAndDrop(smallCircle, targetCircle).perform();
-		Thread.sleep(2000);
-		Assert.assertTrue(driver.findElement(By.xpath("//div[@id='droptarget' and text()='You did great!']")).isDisplayed());
-		
-		
-	}
-
 	
 	
 	@AfterTest
 	public void afterTest() {
-		driver.quit();
+//		driver.quit();
 	}
 
 }
