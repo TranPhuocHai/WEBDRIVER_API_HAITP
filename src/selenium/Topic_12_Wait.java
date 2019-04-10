@@ -33,9 +33,7 @@ public class Topic_12_Wait {
 
 	}
 
-/* Topic_01 +Check "Hello World!" text visible 
- * In this case, Hello World text Element is N/A in DOM (it's only visible after clicking Start Button 5s)
- * */
+
 @Test (enabled = false)
 	public void TC_01_Expli_4S_Impli_1_5_S_Visibility() {
 		driver.manage().timeouts().implicitlyWait(1500, TimeUnit.MILLISECONDS);
