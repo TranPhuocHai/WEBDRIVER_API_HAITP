@@ -1,5 +1,6 @@
 package selenium;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -301,7 +302,9 @@ public class Topic_12_Wait {
 		waitExplicit = new WebDriverWait(driver, 5);
 		
 		By DateTimePicker = By.xpath("//span[@class='rcTitle']");
+		System.out.println("TC_16_DateTimePicker_Wait starts:"+new Date());
 		waitExplicit.until(ExpectedConditions.presenceOfElementLocated(DateTimePicker));
+		System.out.println("TC_16_DateTimePicker_Wait ends:"+new Date());
 		
 		By SelectDateText = By.xpath("//legend[text()='Selected Dates:']/following-sibling::div[@class='RadAjaxPanel']/span");
 		System.out.println(driver.findElement(SelectDateText).getText());	
@@ -310,10 +313,14 @@ public class Topic_12_Wait {
 		driver.findElement(CurentDatePicked).click();
 		
 		By loaderAjax = By.xpath("//div[@class='raDiv']");
+		System.out.println("TC_16_loaderAjax_Wait starts:"+new Date());
 		waitExplicit.until(ExpectedConditions.invisibilityOfElementLocated(loaderAjax));
+		System.out.println("TC_16_loaderAjax_Wait ends:"+new Date());
 
 		By selectedDate = By.xpath("//td[contains(@class,'rcSelected')]//a[text()='" + getCurrentDayofMonth() + "']");
+		System.out.println("TC_16_selectedDate_Wait starts:"+new Date());
 		waitExplicit.until(ExpectedConditions.visibilityOfElementLocated(selectedDate));
+		System.out.println("TC_16_selectedDate_Wait ends:"+new Date());
 		
 		Assert.assertEquals(driver.findElement(SelectDateText).getText(), getCurrentDate());
 		System.out.println("Current Date is: " + getCurrentDate());		
@@ -323,21 +330,7 @@ public class Topic_12_Wait {
 	public void afterTest() {
 		driver.quit();
 	}
-	
-	public String getCurrentWeekDay(){		
-		String daysArray[] = {"Sunday","Monday","Tuesday", "Wednesday","Thursday","Friday", "Saturday"};		
-		Calendar calendar = Calendar.getInstance();
-		int weekday = calendar.get(Calendar.DAY_OF_WEEK);		
-		return daysArray[weekday-1];		
-	}
-	
-	public String getCurrentMonth(){		
-		String monthsArray[] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};		
-		Calendar calendar = Calendar.getInstance();
-		int monthInText = calendar.get(Calendar.MONTH);		
-		return monthsArray[monthInText];		
-	}
-	
+
 	public String getCurrentDayofMonth(){		
 		Calendar cal = Calendar.getInstance();
 		int day = cal.get(Calendar.DAY_OF_MONTH);
@@ -346,10 +339,9 @@ public class Topic_12_Wait {
 	}	
 	
 	public String getCurrentDate(){
-		Calendar cal = Calendar.getInstance();
-		int year = cal.get(Calendar.YEAR);
-		String date = (getCurrentWeekDay() + ", " + getCurrentMonth() + " " + getCurrentDayofMonth() + ", " + year);
-	    return date;
+		Date date = new Date();
+		SimpleDateFormat sDate = new SimpleDateFormat("EEEE, MMMM dd, yyyy");
+		return sDate.format(date);
 	}
 
 }
