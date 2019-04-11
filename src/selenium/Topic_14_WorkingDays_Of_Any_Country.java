@@ -39,7 +39,7 @@ public class Topic_14_WorkingDays_Of_Any_Country {
 	}
 
 	@Test
-	public void TC_01_CheckUrl() throws Exception {
+	public void WorkingDays_Of_Any_Country() throws Exception {
 		driver.get("https://www.timeanddate.com/date/workdays.html");
 		driver.findElement(By.id("chco2")).click();
 		By selectCountry = By.xpath("//h2[text()='Set Default Country']");
