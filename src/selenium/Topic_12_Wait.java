@@ -3,19 +3,24 @@ package selenium;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+
+import com.google.common.base.Function;
 
 public class Topic_12_Wait {
     WebDriver driver;
@@ -34,7 +39,7 @@ public class Topic_12_Wait {
 	}
 
 
-@Test (enabled = false)
+@Test (enabled = true)
 	public void TC_01_Expli_4S_Impli_1_5_S_Visibility() {
 		driver.manage().timeouts().implicitlyWait(1500, TimeUnit.MILLISECONDS);
 		driver.get("https://the-internet.herokuapp.com/dynamic_loading/2");
@@ -46,7 +51,7 @@ public class Topic_12_Wait {
 		System.out.println("-----------------------------------------------------");
 	}
 	
-	@Test (enabled = false)
+	@Test (enabled = true)
 	public void TC_02_Expli_4S_Impli_2S_Visibility() {
 		driver.manage().timeouts().implicitlyWait(2000, TimeUnit.MILLISECONDS);
 		driver.get("https://the-internet.herokuapp.com/dynamic_loading/2");
@@ -58,7 +63,7 @@ public class Topic_12_Wait {
 		System.out.println("-----------------------------------------------------");
 	}
 	
-	@Test (enabled = false)
+	@Test (enabled = true)
 	public void TC_03_Expli_4S_Impli_3S_Visibility() {
 		driver.manage().timeouts().implicitlyWait(3000, TimeUnit.MILLISECONDS);
 		driver.get("https://the-internet.herokuapp.com/dynamic_loading/2");
@@ -71,7 +76,7 @@ public class Topic_12_Wait {
 		
 	}
 	
-	@Test (enabled = false)
+	@Test (enabled = true)
 	public void TC_04_Only_ImplicitWait_2S_FAILED() {
 		driver.get("https://the-internet.herokuapp.com/dynamic_loading/2");
 		driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
@@ -80,7 +85,7 @@ public class Topic_12_Wait {
 		
 	}
 	
-	@Test (enabled = false)
+	@Test (enabled = true)
 	public void TC_05_Only_ImplicitWait_5S_PASSED() {
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		driver.get("https://the-internet.herokuapp.com/dynamic_loading/2");
@@ -92,7 +97,7 @@ public class Topic_12_Wait {
 /* Topic_02: Check Loading bar invisible before Hello World! text displays 
  * In this case, check Loading bar is available in DOM so Implicit does not affect to wait, only Explicit
  * */
-	@Test (enabled = false)
+	@Test (enabled = true)
 	public void TC_06_FAILED() {
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		driver.get("https://the-internet.herokuapp.com/dynamic_loading/2");
@@ -103,7 +108,7 @@ public class Topic_12_Wait {
 		
 	}
 	
-	@Test (enabled = false)
+	@Test (enabled = true)
 	public void TC_07_PASSED() {
 		driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
 		driver.get("https://the-internet.herokuapp.com/dynamic_loading/2");
@@ -114,7 +119,7 @@ public class Topic_12_Wait {
 		
 	}
 	
-	@Test (enabled = false)
+	@Test (enabled = true)
 	public void TC_08_FAILED() {
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		driver.get("https://the-internet.herokuapp.com/dynamic_loading/2");
@@ -127,7 +132,7 @@ public class Topic_12_Wait {
 
 	/* Topic_03 
 	 * */
-	@Test (enabled = false)
+	@Test (enabled = true)
 	public void TC_09_Expli_2S_Impli_5S_PASSED() {
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		driver.get("https://the-internet.herokuapp.com/dynamic_loading/2");
@@ -140,7 +145,7 @@ public class Topic_12_Wait {
 		Assert.assertTrue(driver.findElement(HelloWorldText).isDisplayed());
 	}
 	
-	@Test (enabled = false)
+	@Test (enabled = true)
 		public void TC_10_Expli_2S_Impli_3S_FALED() {
 			driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 			driver.get("https://the-internet.herokuapp.com/dynamic_loading/2");
@@ -155,7 +160,7 @@ public class Topic_12_Wait {
 	
 	/* Topic_04
 	 * */
-	@Test (enabled = false)
+	@Test (enabled = true)
 	public void TC_11_ExplicitWait_Hello_Invisible_NOTAvailableInDOM(){
 		
 		driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
@@ -175,7 +180,7 @@ public class Topic_12_Wait {
 		
 	}
 	
-	@Test (enabled = false)
+	@Test (enabled = true)
 	public void TC_12_ExplicitWait_Hello_Visible_AvailableInDOM(){
 		
 		driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
@@ -201,7 +206,7 @@ public class Topic_12_Wait {
 		
 	}
 	
-	@Test (enabled = false)
+	@Test (enabled = true)
 	public void TC_13_ExplicitWait_Test04_PASSED(){
 		
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -234,7 +239,7 @@ public class Topic_12_Wait {
 		
 	}
 	
-	@Test (enabled = false)
+	@Test (enabled = true)
 	public void TC_14_ExplicitWait_Test04_PASSED() {
 		
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -272,7 +277,7 @@ public class Topic_12_Wait {
 	 * -> verify Hello World visible
 	 * */
 	
-	@Test (enabled = false)
+	@Test (enabled = true)
 	public void TC_15_Full() {
 		
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -300,9 +305,7 @@ public class Topic_12_Wait {
 		waitExplicit = new WebDriverWait(driver, 5);
 		
 		By DateTimePicker = By.xpath("//span[@class='rcTitle']");
-		System.out.println("TC_16_DateTimePicker_Wait starts:"+new Date());
 		waitExplicit.until(ExpectedConditions.presenceOfElementLocated(DateTimePicker));
-		System.out.println("TC_16_DateTimePicker_Wait ends:"+new Date());
 		
 		By SelectDateText = By.xpath("//legend[text()='Selected Dates:']/following-sibling::div[@class='RadAjaxPanel']/span");
 		System.out.println(driver.findElement(SelectDateText).getText());	
@@ -311,17 +314,46 @@ public class Topic_12_Wait {
 		driver.findElement(CurentDatePicked).click();
 		
 		By loaderAjax = By.xpath("//div[@class='raDiv']");
-		System.out.println("TC_16_loaderAjax_Wait starts:"+new Date());
-		waitExplicit.until(ExpectedConditions.invisibilityOfElementLocated(loaderAjax));
-		System.out.println("TC_16_loaderAjax_Wait ends:"+new Date());
-
+		waitExplicit.until(ExpectedConditions.invisibilityOfElementLocated(loaderAjax));		
+		
 		By selectedDate = By.xpath("//td[contains(@class,'rcSelected')]//a[text()='" + getCurrentDayofMonth() + "']");
-		System.out.println("TC_16_selectedDate_Wait starts:"+new Date());
-		waitExplicit.until(ExpectedConditions.visibilityOfElementLocated(selectedDate));
-		System.out.println("TC_16_selectedDate_Wait ends:"+new Date());
+		waitExplicit.until(ExpectedConditions.visibilityOfElementLocated(selectedDate));		
 		
 		Assert.assertEquals(driver.findElement(SelectDateText).getText(), getCurrentDate());
 		System.out.println("Current Date is: " + getCurrentDate());		
+		
+	}	
+	
+	@SuppressWarnings("deprecation")
+	@Test (enabled = true)
+	public void TC_17_Excercise_06_FluentWait() {
+		
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		driver.get("https://daominhdam.github.io/fluent-wait/");
+		WebElement countDown = driver.findElement(By.id("javascript_countdown_time"));
+		waitExplicit = new WebDriverWait(driver, 5);
+		waitExplicit.until(ExpectedConditions.visibilityOf(countDown));
+
+		// Khởi tạo Fluent wait
+		new FluentWait<WebElement>(countDown)
+		           // Tổng time wait là 15s
+		           .withTimeout(15, TimeUnit.SECONDS)
+		            // Tần số mỗi 1s check 1 lần
+		            .pollingEvery(1, TimeUnit.SECONDS)
+		           // Nếu gặp exception là find ko thấy element sẽ bỏ  qua
+		            .ignoring(NoSuchElementException.class)
+		            // Kiểm tra điều kiện
+		            .until(new Function<WebElement, Boolean>() {
+		                public Boolean apply(WebElement element) {
+		                           // Kiểm tra điều kiện countdount = 00
+		                           boolean flag =  element.getText().endsWith("00");
+		                           System.out.println("Time = " +  element.getText());
+		                           // return giá trị cho function apply
+		                           return flag;
+		                }
+		           });
+
+
 	}	
 	
 	@AfterTest
