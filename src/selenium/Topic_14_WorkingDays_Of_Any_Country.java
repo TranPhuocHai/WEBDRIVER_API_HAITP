@@ -17,7 +17,7 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-public class Topic_14_WorkingDate_Of_Any_Country {
+public class Topic_14_WorkingDays_Of_Any_Country {
     WebDriver driver;
     WebDriverWait waitExplicit;
 	JavascriptExecutor javascriptExecutor;
