@@ -27,14 +27,25 @@ public class Topic_14_WorkingDays_Of_Any_Country {
     By EndDay = By.id("d2");
     By EndMonth = By.id("m2");
     By EndYear = By.id("y2");
-    By CalculateButton = By.id("subbut");
+    By CalculateButton = By.xpath("//input[@value='Calculate Duration']");
+    By selectCountry = By.xpath("//h2[text()='Set Default Country']");
 
+    Calendar cal = Calendar.getInstance();
+    int yearNumber = cal.get(Calendar.YEAR);
+    String year = String.valueOf(yearNumber);
+    int month[] = {1,2,3,4,5,6,7,8,9,10,11,12};
+    String monthArray[]= {"January","February","March","April","May","June","July","August","September","October","November","December"};
+    String endday;
+    String countryParent = "//select[@id='country']";
+    String allCountry = "//select[@id='country']/option";
+    String expected_Country = "United States";
+    
 	@BeforeTest
 	public void beforeTest() {
 		System.setProperty("webdriver.chrome.driver",".\\lib\\chromedriver.exe"); driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.manage().window().maximize(); 
-		waitExplicit = new WebDriverWait(driver, 10);
+		waitExplicit = new WebDriverWait(driver, 15);
 		javascriptExecutor = (JavascriptExecutor) driver;
 	}
 
@@ -42,26 +53,13 @@ public class Topic_14_WorkingDays_Of_Any_Country {
 	public void WorkingDays_Of_Any_Country() throws Exception {
 		driver.get("https://www.timeanddate.com/date/workdays.html");
 		driver.findElement(By.id("chco2")).click();
-		By selectCountry = By.xpath("//h2[text()='Set Default Country']");
-		waitExplicit.until(ExpectedConditions.visibilityOfElementLocated(selectCountry));
-		String countryParent = "//select[@id='country']";
-		String allCountry = "//select[@id='country']/option";
-		String expected_Country = "United States";
 		System.out.println(driver.getTitle()+"\n"+expected_Country);
-		selectItem_In_CustomDropdown(countryParent, allCountry, expected_Country);
-		waitExplicit.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id='tzq_save']")));
-		driver.findElement(By.xpath("//button[@id='tzq_save']")).click();
-		Calendar cal = Calendar.getInstance();
-		int yearNumber = cal.get(Calendar.YEAR);
-		String year = String.valueOf(yearNumber);
-		int month[] = {1,2,3,4,5,6,7,8,9,10,11,12};
-		String monthArray[]= {"January","February","March","April","May","June","July","August","September","October","November","December"};
-
-		String endday;
+		selectItem_In_CustomDropdown(countryParent, allCountry, expected_Country);		
+		driver.findElement(By.xpath("//button[@type='submit']")).click();		
 		
 		for (int countMonth: month) {
 			System.out.println("-----------------------------");
-			waitExplicit.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(StartMonth));
+			waitExplicit.until(ExpectedConditions.presenceOfAllElementsLocatedBy(StartMonth));
 			driver.findElement(StartMonth).clear();
 			driver.findElement(StartMonth).sendKeys(String.valueOf(countMonth));
 			driver.findElement(StartDay).clear();
@@ -90,8 +88,8 @@ public class Topic_14_WorkingDays_Of_Any_Country {
 			String monthText = monthArray[countMonth-1];
 			System.out.println(monthText+" "+year);
 			
-			By fromAndIncluding = By.xpath("//strong[contains(text(),' 1') and contains(text(),'"+monthText+"')]");
-			waitExplicit.until(ExpectedConditions.visibilityOfElementLocated(fromAndIncluding));
+			By monthCalendar = By.xpath("//th[contains(text(),'"+monthText+" "+ year+"')]");
+			waitExplicit.until(ExpectedConditions.visibilityOfElementLocated(monthCalendar));
 			
 			String s = driver.findElement(By.xpath("//div[@class='bx-result']//h2")).getText();
 			System.out.println("Working Days " +s);
