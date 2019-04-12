@@ -1,5 +1,5 @@
 package selenium;
-
+import java.time.Duration;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -39,7 +39,7 @@ public class Topic_12_Wait {
 	}
 
 
-@Test (enabled = true)
+@Test (enabled = false)
 	public void TC_01_Expli_4S_Impli_1_5_S_Visibility() {
 		driver.manage().timeouts().implicitlyWait(1500, TimeUnit.MILLISECONDS);
 		driver.get("https://the-internet.herokuapp.com/dynamic_loading/2");
@@ -51,7 +51,7 @@ public class Topic_12_Wait {
 		System.out.println("-----------------------------------------------------");
 	}
 	
-	@Test (enabled = true)
+	@Test (enabled = false)
 	public void TC_02_Expli_4S_Impli_2S_Visibility() {
 		driver.manage().timeouts().implicitlyWait(2000, TimeUnit.MILLISECONDS);
 		driver.get("https://the-internet.herokuapp.com/dynamic_loading/2");
@@ -63,7 +63,7 @@ public class Topic_12_Wait {
 		System.out.println("-----------------------------------------------------");
 	}
 	
-	@Test (enabled = true)
+	@Test (enabled = false)
 	public void TC_03_Expli_4S_Impli_3S_Visibility() {
 		driver.manage().timeouts().implicitlyWait(3000, TimeUnit.MILLISECONDS);
 		driver.get("https://the-internet.herokuapp.com/dynamic_loading/2");
@@ -76,7 +76,7 @@ public class Topic_12_Wait {
 		
 	}
 	
-	@Test (enabled = true)
+	@Test (enabled = false)
 	public void TC_04_Only_ImplicitWait_2S_FAILED() {
 		driver.get("https://the-internet.herokuapp.com/dynamic_loading/2");
 		driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
@@ -85,7 +85,7 @@ public class Topic_12_Wait {
 		
 	}
 	
-	@Test (enabled = true)
+	@Test (enabled = false)
 	public void TC_05_Only_ImplicitWait_5S_PASSED() {
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		driver.get("https://the-internet.herokuapp.com/dynamic_loading/2");
@@ -97,7 +97,7 @@ public class Topic_12_Wait {
 /* Topic_02: Check Loading bar invisible before Hello World! text displays 
  * In this case, check Loading bar is available in DOM so Implicit does not affect to wait, only Explicit
  * */
-	@Test (enabled = true)
+	@Test (enabled = false)
 	public void TC_06_FAILED() {
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		driver.get("https://the-internet.herokuapp.com/dynamic_loading/2");
@@ -108,7 +108,7 @@ public class Topic_12_Wait {
 		
 	}
 	
-	@Test (enabled = true)
+	@Test (enabled = false)
 	public void TC_07_PASSED() {
 		driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
 		driver.get("https://the-internet.herokuapp.com/dynamic_loading/2");
@@ -119,7 +119,7 @@ public class Topic_12_Wait {
 		
 	}
 	
-	@Test (enabled = true)
+	@Test (enabled = false)
 	public void TC_08_FAILED() {
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		driver.get("https://the-internet.herokuapp.com/dynamic_loading/2");
@@ -132,7 +132,7 @@ public class Topic_12_Wait {
 
 	/* Topic_03 
 	 * */
-	@Test (enabled = true)
+	@Test (enabled = false)
 	public void TC_09_Expli_2S_Impli_5S_PASSED() {
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		driver.get("https://the-internet.herokuapp.com/dynamic_loading/2");
@@ -145,7 +145,7 @@ public class Topic_12_Wait {
 		Assert.assertTrue(driver.findElement(HelloWorldText).isDisplayed());
 	}
 	
-	@Test (enabled = true)
+	@Test (enabled = false)
 		public void TC_10_Expli_2S_Impli_3S_FALED() {
 			driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 			driver.get("https://the-internet.herokuapp.com/dynamic_loading/2");
@@ -160,7 +160,7 @@ public class Topic_12_Wait {
 	
 	/* Topic_04
 	 * */
-	@Test (enabled = true)
+	@Test (enabled = false)
 	public void TC_11_ExplicitWait_Hello_Invisible_NOTAvailableInDOM(){
 		
 		driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
@@ -180,7 +180,7 @@ public class Topic_12_Wait {
 		
 	}
 	
-	@Test (enabled = true)
+	@Test (enabled = false)
 	public void TC_12_ExplicitWait_Hello_Visible_AvailableInDOM(){
 		
 		driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
@@ -206,7 +206,7 @@ public class Topic_12_Wait {
 		
 	}
 	
-	@Test (enabled = true)
+	@Test (enabled = false)
 	public void TC_13_ExplicitWait_Test04_PASSED(){
 		
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -239,7 +239,7 @@ public class Topic_12_Wait {
 		
 	}
 	
-	@Test (enabled = true)
+	@Test (enabled = false)
 	public void TC_14_ExplicitWait_Test04_PASSED() {
 		
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -277,7 +277,7 @@ public class Topic_12_Wait {
 	 * -> verify Hello World visible
 	 * */
 	
-	@Test (enabled = true)
+	@Test (enabled = false)
 	public void TC_15_Full() {
 		
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -297,7 +297,7 @@ public class Topic_12_Wait {
 		
 	}
 	
-	@Test (enabled = true)
+	@Test (enabled = false)
 	public void TC_16_Excercise_05() {
 		
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -324,7 +324,6 @@ public class Topic_12_Wait {
 		
 	}	
 	
-	@SuppressWarnings("deprecation")
 	@Test (enabled = true)
 	public void TC_17_Excercise_06_FluentWait() {
 		
@@ -337,9 +336,9 @@ public class Topic_12_Wait {
 		// Khởi tạo Fluent wait
 		new FluentWait<WebElement>(countDown)
 		           // Tổng time wait là 15s
-		           .withTimeout(15, TimeUnit.SECONDS)
+		           .withTimeout(Duration.ofSeconds(15))
 		            // Tần số mỗi 1s check 1 lần
-		            .pollingEvery(1, TimeUnit.SECONDS)
+		            .pollingEvery(Duration.ofSeconds(1))
 		           // Nếu gặp exception là find ko thấy element sẽ bỏ  qua
 		            .ignoring(NoSuchElementException.class)
 		            // Kiểm tra điều kiện
