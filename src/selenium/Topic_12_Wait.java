@@ -352,7 +352,6 @@ public class Topic_12_Wait {
 		                }
 		           });
 
-
 	}	
 	
 	@AfterTest
