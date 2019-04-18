@@ -11,14 +11,38 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.AfterSuite;
 
-public class TestNG_01_Annotations {
-	@Test
+public class TestNG_01_Annotations_Groups_Priority {
+	@Test(groups ="check", priority = 3)
 	public void TC_01 () {
 		System.out.println("Test case 01");
 	}
-	@Test
+	@Test (groups ="noncheck", priority = 4)
 	public void TC_02 () {
 		System.out.println("Test case 02");
+	}
+	@Test 
+	public void TC_03 () {
+		System.out.println("Test case 03");
+	}
+	@Test (groups ="check", priority = 2)
+	public void TC_04 () {
+		System.out.println("Test case 04");
+	}
+	@Test 
+	public void TC_05 () {
+		System.out.println("Test case 05");
+	}
+	@Test 
+	public void TC_06 () {
+		System.out.println("Test case 06");
+	}
+	@Test (groups ="check", priority = 1)
+	public void TC_07 () {
+		System.out.println("Test case 07");
+	}
+	@Test (groups ="noncheck")
+	public void TC_09 () {
+		System.out.println("Test case 09");
 	}
 
   @BeforeMethod

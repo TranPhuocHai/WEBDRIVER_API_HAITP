@@ -2,16 +2,9 @@
 <suite name="Selenium WebDriver API" parallel="false">
 
   <test name="Run Test On Chrome Browser">
-  	<groups>
-	  	<run>
-		  	<include name = "check"/>
-		  	<include name = "noncheck"/>
 
-	  	</run>
-  
-  	</groups>
     <classes>
-      <class name="testng.TestNG_01_Annotations_Groups_Priority"/>
+      <class name="testng.TestNG_02_dataPr_Loop_Depend_Multi"/>
     </classes>
   </test> 
   
