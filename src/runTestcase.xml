@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Selenium WebDriver API" parallel="false">
+
+  <test name="Run Test On Chrome Browser">
+    <classes>
+      <class name="testng.TestNG_01_Annotations"/>
+    </classes>
+  </test> 
+  
+</suite> 
