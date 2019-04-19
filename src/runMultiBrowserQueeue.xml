@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Selenium WebDriver API - Run multi Browser in queeue" parallel="false">
+
+
+  <test name="Run Test On Chrome Browser">
+  <parameter name ="browser" value ="chrome"/>
+
+    <classes>
+      <class name="testng.TestNG_02_MultiBrowser"/>
+    </classes>
+  </test> 
+  
+  <test name="Run Test On firerfox Browser">
+  <parameter name ="browser" value ="firefox"/>
+
+    <classes>
+      <class name="testng.TestNG_02_MultiBrowser"/>
+    </classes>
+  </test> 
+  
+  <test name="Run Test On ie Browser">
+  <parameter name ="browser" value ="ie"/>
+
+    <classes>
+      <class name="testng.TestNG_02_MultiBrowser"/>
+    </classes>
+  </test> 
+  
+  
+</suite> 

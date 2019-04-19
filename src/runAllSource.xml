@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Run allI">
+<suite-files>
+	<suite-file path = "runTestGroup.xml"/>
+	<suite-file path = "runMultiBrowserParallel.xml"/>
+	<suite-file path = "runMultiBrowserQueeue.xml"/>
+	<suite-file path = "runLoopDataprovider.xml"/>
+</suite-files>
+  
+</suite> 

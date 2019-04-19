@@ -57,7 +57,7 @@ public class TestNG_01_Annotations_Groups_Priority {
   }
 
 
-  @BeforeClass
+  @BeforeClass(groups ="check")
   public void beforeClass() {
 		System.out.println("beforeClass");
   }

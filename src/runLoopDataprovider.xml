@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="Selenium WebDriver API" parallel="false">
-
   <test name="Run Test On Chrome Browser">
-
     <classes>
-      <class name="testng.TestNG_02_dataPr_Loop_Depend_Multi"/>
+      <class name="testng.TestNG_03_Loop_Dataprovider"/>
     </classes>
-  </test> 
+   </test>
   
 </suite> 
