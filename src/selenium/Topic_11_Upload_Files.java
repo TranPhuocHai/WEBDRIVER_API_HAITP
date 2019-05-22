@@ -51,12 +51,12 @@ public class Topic_11_Upload_Files {
 //		driver = new FirefoxDriver();
 		
 		/*  ---  Chrome  ---  */
-		System.setProperty("webdriver.chrome.driver",".\\lib\\chromedriver.exe");
-		driver = new ChromeDriver();
+//		System.setProperty("webdriver.chrome.driver",".\\lib\\chromedriver.exe");
+//		driver = new ChromeDriver();
 		
 		/*  ---   ie  ---   */
-//		System.setProperty("webdriver.ie.driver",".\\lib\\IEDriverServer.exe");
-//		driver = new InternetExplorerDriver();
+		System.setProperty("webdriver.ie.driver",".\\lib\\IEDriverServer.exe");
+		driver = new InternetExplorerDriver();
 		
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.manage().window().maximize(); 
