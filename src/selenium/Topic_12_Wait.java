@@ -1,6 +1,6 @@
 package selenium;
-import java.time.Duration;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.NoSuchElementException;
@@ -10,8 +10,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -333,21 +331,21 @@ public class Topic_12_Wait {
 		waitExplicit = new WebDriverWait(driver, 5);
 		waitExplicit.until(ExpectedConditions.visibilityOf(countDown));
 
-		// Khởi tạo Fluent wait
+		// Khá»Ÿi táº¡o Fluent wait
 		new FluentWait<WebElement>(countDown)
-		           // Tổng time wait là 15s
+		           // Tá»•ng time wait lÃ  15s
 		           .withTimeout(Duration.ofSeconds(15))
-		            // Tần số mỗi 1s check 1 lần
+		            // Táº§n sá»‘ má»—i 1s check 1 láº§n
 		            .pollingEvery(Duration.ofSeconds(1))
-		           // Nếu gặp exception là find ko thấy element sẽ bỏ  qua
+		           // Náº¿u gáº·p exception lÃ  find ko tháº¥y element sáº½ bá»�  qua
 		            .ignoring(NoSuchElementException.class)
-		            // Kiểm tra điều kiện
+		            // Kiá»ƒm tra Ä‘iá»�u kiá»‡n
 		            .until(new Function<WebElement, Boolean>() {
 		                public Boolean apply(WebElement element) {
-		                           // Kiểm tra điều kiện countdount = 00
+		                           // Kiá»ƒm tra Ä‘iá»�u kiá»‡n countdount = 00
 		                           boolean flag =  element.getText().endsWith("00");
 		                           System.out.println("Time = " +  element.getText());
-		                           // return giá trị cho function apply
+		                           // return giÃ¡ trá»‹ cho function apply
 		                           return flag;
 		                }
 		           });
